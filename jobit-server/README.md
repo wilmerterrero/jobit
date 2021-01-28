@@ -1,6 +1,1 @@
-# Job IT - Server
-
-- Express
-- Typescript
-- Typeorm
-- Postgres
+## Jobs API
