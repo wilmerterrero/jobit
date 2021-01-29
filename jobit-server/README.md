@@ -1,1 +1,7 @@
-## Jobs API
+## Jobit API
+
+- Typescript
+- Express
+- TypeORM
+- Postgres
+
