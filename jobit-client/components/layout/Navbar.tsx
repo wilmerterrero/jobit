@@ -122,9 +122,7 @@ const Navbar: React.FC = () => {
                   />
                 </button>
                 <div
-                  className={`${
-                    profileBar ? null : "hidden"
-                  } origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5`}
+                  className={`${profileBar ? null : "hidden" } origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5`}
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="user-menu"
@@ -153,8 +151,8 @@ const Navbar: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className="ml-3">
-                <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 mr-3 rounded-md text-base font-medium">
+              <div className="ml-3 hidden lg:block md:block xl:block 2xl:block">
+                <a className=" text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 mr-3 rounded-md text-base font-medium">
                   Log In
                 </a>
                 <a className="bg-gray-900 text-white px-3 py-2 rounded-md font-medium">
@@ -194,6 +192,20 @@ const Navbar: React.FC = () => {
           >
             Calendar
           </a>
+          <div className="text-center">
+          <a
+            href="#"
+            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Log In
+          </a>
+          <a
+            href="#"
+            className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Create Account
+          </a>
+          </div>
         </div>
       </div>
     </nav>
