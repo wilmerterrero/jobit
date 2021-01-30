@@ -22,10 +22,12 @@ export default class UsersController extends AbstractRepository<UsersModel>{
             const FindUser = await UsersModel.findOne({email: Email});
             if(!FindUser){
                 const CreateUsers = await UsersModel.create({username: Username, email: Email, password: Password, role: Role});
-                if(CreateUsers.role == "admin") return res.status(400).json({msg: "User cant have admin role"}); 
+                if(CreateUsers.role == "admin" && await UsersModel.count({ role: "admin" }) > 1) {
+                    return res.status(400).json({msg: "There cannot be more than 1 admin"});
+                }
 
-                const SaveUsers = await CreateUsers.save();
-                return res.status(201).json({msg: SaveUsers});
+                const SaveUsers = await UsersModel.save(CreateUsers);
+                return res.status(201).json({msg: SaveUsers});  
             }
 
             return res.status(400).json({msg: 'User already exists or it has admin role'});
