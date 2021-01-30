@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
     }
   };
 
-  const user = false;
+  const user = true;
 
   return (
     <nav className="bg-gray-800">

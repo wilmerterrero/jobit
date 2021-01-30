@@ -1,11 +1,12 @@
 import React from 'react';
 import Navbar from '../components/layout/Navbar';
+import Hero from '../components/layout/Hero';
 
 const Index = () => {
   return ( 
     <div>
       <Navbar />
-      <h1>Hello World!</h1>
+      <Hero />
     </div>
    );
 }
