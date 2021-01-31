@@ -1,4 +1,5 @@
 import express, { Router } from 'express';
+import passport from 'passport';
 import UsersController from '../controllers/users.controller';
 
 class AuthRoutes{
@@ -14,6 +15,7 @@ class AuthRoutes{
         
         this.router.post('/register', usersController.Register);
         this.router.post('/login', usersController.Login);
+        this.router.post('/login/admin/change', passport.authenticate('jwt', { session: false }) ,usersController.ChangeRole);
     }
 }
 

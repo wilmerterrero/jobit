@@ -1,4 +1,4 @@
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate, BeforeRemove } from 'typeorm';
+import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 import { UsersModel } from '../models/users.model';
 
 @Entity('jobs')
@@ -18,10 +18,10 @@ export class JobsModel extends BaseEntity{
     @Column({type: "varchar"})
     type: string;
 
-    @BeforeInsert()
-    @BeforeUpdate()
-    @BeforeRemove()
-    public async VerifyRole(payload: UsersModel){
-        
-    }
+    @Column({type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+    createdAt: Date;
+    
+    @OneToOne(() => UsersModel)
+    @JoinColumn()
+    createdBy: UsersModel;
 }
