@@ -74,13 +74,12 @@ export default class UsersController extends AbstractRepository<UsersModel>{
             if(!Email || !Role) return res.status(400).json({msg: 'Provide missing fields'});
 
             const FindUser = await UsersModel.findOne({email: Email});
-            if(!FindUser){
-                return res.status(400).json({msg: 'User does not exist'});
+            if(FindUser){
+                await UsersModel.update({email: Email}, {role: Role})
+                return res.status(200).json({msg: "User role has been updated"});
             }
-            
-            const UpdateUserRole = await UsersModel.update(FindUser, {role: Role});
-            
-            return res.status(200).json({msg: UpdateUserRole});
+
+            return res.status(200).json({msg: "Something went wrong"});
         }
         catch(error){
             console.log(error);
