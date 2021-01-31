@@ -3,7 +3,7 @@ import React from 'react';
 const Login = () => {
   return ( 
   <div>
-      <div class="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+      <div class="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col m-5">
           <div class="mb-4">
               <label class="block text-grey-darker text-sm font-bold mb-2" for="username">
         Username
