@@ -22,10 +22,12 @@ export default class UsersController extends AbstractRepository<UsersModel>{
             const FindUser = await UsersModel.findOne({email: Email});
             if(!FindUser){
                 const CreateUsers = await UsersModel.create({username: Username, email: Email, password: Password, role: Role});
-                if(CreateUsers.role == "admin") return res.status(400).json({msg: "User cant have admin role"}); 
+                if(CreateUsers.role == "admin" && await UsersModel.count({ role: "admin" }) > 1) {
+                    return res.status(400).json({msg: "There cannot be more than 1 admin"});
+                }
 
-                const SaveUsers = await CreateUsers.save();
-                return res.status(201).json({msg: SaveUsers});
+                const SaveUsers = await UsersModel.save(CreateUsers);
+                return res.status(201).json({msg: SaveUsers});  
             }
 
             return res.status(400).json({msg: 'User already exists or it has admin role'});
@@ -59,6 +61,25 @@ export default class UsersController extends AbstractRepository<UsersModel>{
             }
 
             return res.status(400).json({msg: 'Error on logging in the user'});
+        }
+        catch(error){
+            console.log(error);
+            return res.status(400).json({msg: error});
+        }
+    }
+
+    public async ChangeRole(req: Request, res: Response): Promise<Response>{
+        try{
+            const { Email, Role } = req.body;
+            if(!Email || !Role) return res.status(400).json({msg: 'Provide missing fields'});
+
+            const FindUser = await UsersModel.findOne({email: Email});
+            if(FindUser){
+                await UsersModel.update({email: Email}, {role: Role})
+                return res.status(200).json({msg: "User role has been updated"});
+            }
+
+            return res.status(200).json({msg: "Something went wrong"});
         }
         catch(error){
             console.log(error);

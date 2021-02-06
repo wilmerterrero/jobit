@@ -1,7 +1,7 @@
 import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
 import bcrypt from 'bcryptjs';
 
-type Roles = "admin" | "client"
+type Roles = "admin" | "client" | "moderator";
 
 @Entity('users')
 export class UsersModel extends BaseEntity{
@@ -20,7 +20,10 @@ export class UsersModel extends BaseEntity{
     @Column({type: "timestamp", default: () =>"CURRENT_TIMESTAMP"})
     signedIn: Date
 
-    @Column({type: "enum", enum: ["admin", "client"], default: "client"})
+    @Column({type: 'varchar', nullable: true})
+    profilePic: string;
+
+    @Column({type: "enum", enum: ["admin", "client", "moderator"], default: "client"})
     role: Roles
 
     @BeforeInsert()

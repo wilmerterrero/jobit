@@ -1,7 +1,6 @@
 ## Jobit API
 
 - Typescript
-- Express
-- TypeORM
-- Postgres
-
+- NodeJS/Express
+- Typeorm
+- Bcrypt/Jwt
