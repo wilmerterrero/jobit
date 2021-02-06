@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 
 const Navbar: React.FC = () => {
   const [navbarSM, setNavbarSM] = useState<boolean>(false);
@@ -20,7 +21,7 @@ const Navbar: React.FC = () => {
     }
   };
 
-  const user = true;
+  const user = false;
 
   return (
     <nav className="bg-gray-800">
@@ -83,12 +84,13 @@ const Navbar: React.FC = () => {
             </div>
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-4">
-                <a
-                  href="#"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium"
+                <Link
+                  href="/"
                 >
-                  Home
-                </a>
+                  <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">
+                    Home
+                  </a>
+                </Link>
                 <a
                   href="#"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium"
@@ -152,12 +154,20 @@ const Navbar: React.FC = () => {
               </div>
             ) : (
               <div className="ml-3 hidden lg:block md:block xl:block 2xl:block">
-                <a className=" text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 mr-3 rounded-md text-base font-medium">
-                  Log In
-                </a>
-                <a className="bg-gray-900 text-white px-3 py-2 rounded-md font-medium">
-                  Create Account
-                </a>
+                <Link
+                  href="/login"
+                >
+                  <a className=" text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 mr-3 rounded-md text-base font-medium">
+                    Log In
+                  </a>
+                </Link>
+                <Link
+                  href="/create-account"
+                >
+                  <a className="bg-gray-900 text-white px-3 py-2 rounded-md font-medium">
+                    Create Account
+                  </a>
+                </Link>
               </div>
             )}
           </div>
@@ -193,18 +203,20 @@ const Navbar: React.FC = () => {
             Calendar
           </a>
           <div className="text-center">
-          <a
-            href="#"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          <Link
+             href="/login"
           >
-            Log In
-          </a>
-          <a
-            href="#"
-            className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+            <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              Log In
+            </a>
+          </Link>
+          <Link
+            href="/create-account"
           >
-            Create Account
-          </a>
+            <a className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+              Create Account
+            </a>
+          </Link>
           </div>
         </div>
       </div>

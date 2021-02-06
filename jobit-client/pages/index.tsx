@@ -1,13 +1,13 @@
 import React from 'react';
 import Navbar from '../components/layout/Navbar';
 import Hero from '../components/layout/Hero';
+import Layout from '../components/layout/Layout';
 
 const Index = () => {
   return ( 
-    <div>
-      <Navbar />
+    <Layout>
       <Hero />
-    </div>
+    </Layout>
    );
 }
  
