@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/src/index.js",
-    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
-    "build": "tsc"  
+    "build": "tsc",
+    "tsc": "tsc",
+    "postinstall": "npm run tsc"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +22,8 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "pg": "^8.5.1",
-    "typeorm": "^0.2.30"
+    "typeorm": "^0.2.30",
+    "typescript": "^4.1.4"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
