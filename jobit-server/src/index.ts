@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import { SearchConnectionConfig } from './config/connection.config';
 import passport from 'passport';
 import passportStrategy from './config/passport.config';
+import { config } from 'dotenv';
 
 //router imports
 import { AuthRouter } from './routes/auth.routes';
@@ -13,10 +14,10 @@ import { JobsRouter } from './routes/jobs.routes';
 
 class Server{
     private app: express.Application;
-    private port: number;
+    private port: number|string;
 
     constructor(){
-        this.port = 8080;
+        this.port = process.env.PORT || 8080;
         this.app = express();
         this.Config();
         this.Routes();
@@ -32,6 +33,7 @@ class Server{
 
         //config middlewares
         SearchConnectionConfig();
+        config();
         passport.use(passportStrategy);
     }
 
