@@ -14,7 +14,7 @@ class JobsRoutes{
         const jobsController = new JobsController();
 
         this.router.get('/', passport.authenticate('jwt', {session: false}) ,jobsController.GetAllJobs);
-        this.router.get('/:id', passport.authenticate('jwt', {session: false}) ,jobsController.GetOneJob)
+        this.router.get('/one/', passport.authenticate('jwt', {session: false}) ,jobsController.GetOneJob)
         this.router.post('/publish/', passport.authenticate('jwt', {session: false}) ,jobsController.PostJobs);
         this.router.put('/update/:id', passport.authenticate('jwt', {session: false}) ,jobsController.UpdateJobs);
         this.router.delete('/delete/:id', passport.authenticate('jwt', {session: false}) ,jobsController.DeleteOneJob)
