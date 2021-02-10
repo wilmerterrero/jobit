@@ -51,7 +51,7 @@ export default class UsersController extends AbstractRepository<UsersModel>{
                 return res.status(400).json({msg: 'User does not exist'});
             }
 
-            const Token = await jwt.sign({id: FindUser.id, email: FindUser.email}, SecretKey.key, {
+            const Token = await jwt.sign({id: FindUser.id, email: FindUser.email, role: FindUser.role}, SecretKey.key, {
                 expiresIn: '8h'
             });
 
