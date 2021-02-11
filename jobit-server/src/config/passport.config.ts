@@ -19,4 +19,4 @@ export default new Strategy(Options, async(payload, verify) => {
     catch(error){
         return error;
     }
-})
+});
