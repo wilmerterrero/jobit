@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import Layout from "../components/layout/Layout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import authContext from "../context/auth/authContext";
 
 interface LoginValues {
   email: string;
@@ -9,6 +10,8 @@ interface LoginValues {
 }
 
 const Login = () => {
+
+  const { logInUser } = useContext(authContext);
 
   const initialLoginValues: LoginValues = {
     email: '',
@@ -25,7 +28,7 @@ const Login = () => {
                    .required('The password is mandatory')
     }),
     onSubmit: values => {
-      console.log(values);
+      logInUser(values);
     }
   });
 

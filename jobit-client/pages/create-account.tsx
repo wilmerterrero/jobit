@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import Layout from "../components/layout/Layout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import authContext from "../context/auth/authContext";
 
 interface CreateAccountValues {
   username: string;
   email: string;
   password: string;
+  role: Roles;
 }
 
-const CreateAccount = () => {
+const CreateAccount: React.FC = () => {
+
+  const { registerUser } = useContext(authContext);
 
   const initialCreateAccountValuesValues: CreateAccountValues = {
     username: '',
     email: '',
-    password: ''
+    password: '',
+    role: 'client'
   }
 
   const formik = useFormik({
@@ -30,7 +35,7 @@ const CreateAccount = () => {
                 .min(6, 'The password must contain 6 characters')
     }),
     onSubmit: values => {
-      console.log(values);
+      registerUser(values);
     }
   });
 
