@@ -18,6 +18,9 @@ export class JobsModel extends BaseEntity{
     @Column({type: "varchar"})
     type: string;
 
+    @Column({type: 'text', nullable: true})
+    description: string;
+
     @Column({type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
     createdAt: Date;
     
