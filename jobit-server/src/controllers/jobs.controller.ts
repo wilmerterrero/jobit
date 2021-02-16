@@ -4,7 +4,7 @@ import { EntityRepository, AbstractRepository } from 'typeorm';
 import { UsersModel } from '../models/users.model';
 
 @EntityRepository(JobsModel)
-export default class  extends AbstractRepository<JobsModel>{
+export default class JobsController extends AbstractRepository<JobsModel>{
 
     constructor(){ super(); }
 
@@ -19,6 +19,18 @@ export default class  extends AbstractRepository<JobsModel>{
 
         const Job = await JobsModel.findOne({id: Id});
         return res.status(200).json({msg: Job});
+    }
+
+    public async PaginatedJobs(req: Request, res: Response): Promise<Response> {
+        const { Skip, Take } = req.body;
+
+        if(Skip >= 0 && Take > 0){
+            const Pagination = await JobsModel.find({skip: Skip, take: Take});
+
+            return res.status(200).json({msg: Pagination});
+        }
+
+        return res.status(400).json({msg: "Something went wrong"}); 
     }
 
     public async PostJobs(req: Request, res: Response): Promise<Response>{
