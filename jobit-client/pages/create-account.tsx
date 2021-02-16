@@ -11,7 +11,7 @@ interface CreateAccountValues {
   role: Roles;
 }
 
-const CreateAccount: React.FC = () => {
+const CreateAccount: React.FC<CreateAccountValues> = () => {
 
   const { registerUser } = useContext(authContext);
 

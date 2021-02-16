@@ -19,3 +19,14 @@ type UserContextType = {
     registerUser: (user: IUser) => void
     logInUser: (user: IUser) => void
 }
+
+interface IJob {
+    id?: number;
+    createdBy?: string;
+    position: string;
+    company: string;
+    description: string;
+    createdAt: string;
+    location: string;
+    type: string;
+}

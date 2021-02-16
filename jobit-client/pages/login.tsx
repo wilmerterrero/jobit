@@ -9,7 +9,7 @@ interface LoginValues {
   password: string;
 }
 
-const Login = () => {
+const Login: React.FC<LoginValues> = () => {
 
   const { logInUser } = useContext(authContext);
 
