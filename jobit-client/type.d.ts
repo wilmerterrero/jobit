@@ -11,8 +11,8 @@ interface IUser {
 }
 
 type UserContextType = {
-    users: IUser[]
-    user: IUser
+    users: IUser[] | null
+    user: IUser | null
     token: string
     authorized: null
     message: null
@@ -30,4 +30,9 @@ interface IJob {
     createdAt: string;
     location: string;
     type: string;
+}
+
+type JobContextType = {
+    jobs?: IJob[] | null,
+    job?: IJob | null
 }

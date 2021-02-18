@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import Hero from '../components/layout/Hero';
 import Layout from '../components/layout/Layout';
 import JobsLayout from '../components/layout/jobs/JobsLayout';
-import JobCard from '../components/layout/jobs/JobCard';
 
 import authContext from '../context/auth/authContext';
 
@@ -83,13 +82,9 @@ const Index = () => {
   return ( 
     <Layout>
       <Hero />
-      <JobsLayout>
-        {
-          jobList.map((job: IJob) => (
-            <JobCard job={job} />
-          ))
-        }
-      </JobsLayout>
+      <JobsLayout 
+        jobs={jobList}
+      />
     </Layout>
    );
 }

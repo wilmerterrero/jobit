@@ -1,6 +1,6 @@
 import React from "react";
 
-const JobCard: React.FC<IJob> = ({ job }) => {
+const JobCard: React.FC<JobContextType> = ({ job }) => {
 
   const { id, position, description, createdAt, createdBy, company } = job;
 
