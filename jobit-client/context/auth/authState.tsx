@@ -2,6 +2,8 @@ import React, { useReducer } from 'react';
 import authContext from './authContext';
 import authReducer from './authReducer';
 
+import axiosClient from '../../config/axios';
+
 import { 
     REGISTER_SUCCCES, 
     REGISTER_ERROR,
@@ -50,19 +52,20 @@ const AuthState: React.FC = ({ children }) => {
      * 
      * @param {IUser} user 
      */
-    const registerUser = (user: IUser) => {
+    const registerUser = async (user: IUser) => {
 
         try {
-            const response = 'HELLO WORLD'
+            const response = await axiosClient.post('/auth/register', user);
+            console.log(response.data.msg);
             dispatch({
                 type: REGISTER_SUCCCES,
-                payload: user
+                payload: response.data.msg
             })
             console.log(user);
         } catch (error) {
             dispatch({
                 type: REGISTER_ERROR,
-                payload: error.user
+                payload: error.response.data.msg
             })
         }
 

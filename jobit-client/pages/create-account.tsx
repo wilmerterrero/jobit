@@ -32,7 +32,7 @@ const CreateAccount: React.FC<CreateAccountValues> = () => {
                 .required('The email is mandatory'),
       password: Yup.string()
                 .required('The password is mandatory')
-                .min(6, 'The password must contain 6 characters')
+                .min(8, 'The password must contain 6 characters')
     }),
     onSubmit: values => {
       registerUser(values);
