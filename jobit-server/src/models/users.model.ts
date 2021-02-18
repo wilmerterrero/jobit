@@ -6,7 +6,7 @@ type Roles = "admin" | "client" | "moderator";
 @Entity('users')
 export class UsersModel extends BaseEntity{
     @PrimaryGeneratedColumn()
-    id: number;
+    id: number
 
     @Column({type: "varchar"})
     username: string;

@@ -2,7 +2,7 @@ import { UsersModel } from '../models/users.model';
 import { body } from 'express-validator';
 import { EntityRepository, AbstractRepository } from 'typeorm';
 import { Request, Response } from 'express';    
-import { SecretKey, RefreshSecretKey } from '../config/jwt.config';
+import { SecretKey } from '../config/jwt.config';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
@@ -66,7 +66,6 @@ export default class UsersController extends AbstractRepository<UsersModel>{
 
             const MatchPassword = await bcrypt.compare(Password, FindUser.password);
             if(MatchPassword){
-                console.log(Token);
                 return res.status(201).json({msg: Token});
             }
 
@@ -74,6 +73,22 @@ export default class UsersController extends AbstractRepository<UsersModel>{
             return res.status(400).json({msg: 'Error on logging in the user'});
         }
         catch(error){
+            console.log(error);
+            return res.status(400).json({msg: error});
+        }
+    }
+
+    public async GetUserInfo(req: Request, res: Response): Promise<Response>{
+        try {
+            const Header: any = req.headers['authorization'];
+            const Token: any = Header && Header.split(' ')[1];
+
+            const Decoded = jwt.decode(Token);
+
+            console.log(Decoded);
+            return res.status(200).json({msg: Decoded})
+        }
+        catch(error) {
             console.log(error);
             return res.status(400).json({msg: error});
         }
