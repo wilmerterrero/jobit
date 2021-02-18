@@ -5,8 +5,8 @@ import * as Yup from "yup";
 import authContext from "../context/auth/authContext";
 
 interface LoginValues {
-  email: string;
-  password: string;
+  Email: string;
+  Password: string;
 }
 
 const Login: React.FC<LoginValues> = () => {
@@ -14,17 +14,17 @@ const Login: React.FC<LoginValues> = () => {
   const { logInUser } = useContext(authContext);
 
   const initialLoginValues: LoginValues = {
-    email: '',
-    password: ''
+    Email: '',
+    Password: ''
   }
 
   const formik = useFormik({
     initialValues: initialLoginValues,
     validationSchema: Yup.object({
-      email: Yup.string()
+      Email: Yup.string()
                 .email('The email is not valid')
                 .required('The email is mandatory'),
-      password: Yup.string()
+      Password: Yup.string()
                    .required('The password is mandatory')
     }),
     onSubmit: values => {
@@ -47,26 +47,26 @@ const Login: React.FC<LoginValues> = () => {
           </h2>
           <div className="mb-4">
 
-            { formik.touched.email && formik.errors.email ? (
+            { formik.touched.Email && formik.errors.Email ? (
                     <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
                       <p className="font-bold">Error</p>
-                      <p>{ formik.errors.email }</p>
+                      <p>{ formik.errors.Email }</p>
                     </div>
                   ) : null }
 
             <label
               className="block text-white text-sm font-bold mb-2"
-              htmlFor="email"
+              htmlFor="Email"
             >
               Email
             </label>
 
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-              id="email"
+              id="Email"
               type="email"
               placeholder="Email"
-              value={formik.values.email}
+              value={formik.values.Email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
@@ -74,26 +74,26 @@ const Login: React.FC<LoginValues> = () => {
           </div>
           <div className="mb-6">
 
-            { formik.touched.password && formik.errors.password ? (
+            { formik.touched.Password && formik.errors.Password ? (
                     <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
                       <p className="font-bold">Error</p>
-                      <p>{ formik.errors.password }</p>
+                      <p>{ formik.errors.Password }</p>
                     </div>
                   ) : null }
 
             <label
               className="block text-white text-sm font-bold mb-2"
-              htmlFor="password"
+              htmlFor="Password"
             >
               Password
             </label>
 
             <input
               className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
-              id="password"
+              id="Password"
               type="password"
               placeholder="Password"
-              value={formik.values.password}
+              value={formik.values.Password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />

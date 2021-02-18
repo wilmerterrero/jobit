@@ -1,11 +1,21 @@
-import React from 'react';
-import Navbar from '../components/layout/Navbar';
+import React, { useContext, useEffect } from 'react';
 import Hero from '../components/layout/Hero';
 import Layout from '../components/layout/Layout';
 import JobsLayout from '../components/layout/jobs/JobsLayout';
 import JobCard from '../components/layout/jobs/JobCard';
 
+import authContext from '../context/auth/authContext';
+
 const Index = () => {
+
+    //auth context
+    const AuthContext = useContext(authContext);
+    const { authUser } = AuthContext;
+  
+    //checking if the user is authenticated
+    useEffect(() => {
+      authUser();
+    }, []);
 
   const jobList: IJob[] = [
     {

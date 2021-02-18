@@ -3,6 +3,7 @@ import authContext from './authContext';
 import authReducer from './authReducer';
 
 import axiosClient from '../../config/axios';
+import tokenAuth from '../../config/token';
 
 import { 
     REGISTER_SUCCCES, 
@@ -56,7 +57,6 @@ const AuthState: React.FC = ({ children }) => {
 
         try {
             const response = await axiosClient.post('/auth/register', user);
-            console.log(response.data.msg);
             dispatch({
                 type: REGISTER_SUCCCES,
                 payload: response.data.msg
@@ -84,23 +84,22 @@ const AuthState: React.FC = ({ children }) => {
      * 
      * @param {IUser} user 
      */
-    const logInUser = (user: IUser) => {
+    const logInUser = async (user: IUser) => {
 
         try {
-            const response = 'HELLO WORLD';
+            const response = await axiosClient.post('/auth/login', user);
+            console.log(response);
             
             //passing the token to the state
             dispatch({
                 type: LOGIN_SUCCESS,
-                payload: user
+                payload: response.data.msg
             })
-
-            console.log(user);
 
         } catch (error) {
             dispatch({
                 type: LOGIN_ERROR,
-                payload: user
+                payload: error.response.data.msg
             })
         }
 
@@ -112,6 +111,32 @@ const AuthState: React.FC = ({ children }) => {
 
     }
 
+     /**
+     * Auth action for check if the user is authenticated through the token
+     */
+    const authUser = async () => {
+
+        const token = localStorage.getItem('token');
+
+        if(token) {
+            tokenAuth(token);
+        }
+
+        try {
+            const response = await axiosClient.get('/auth/login');
+            console.log(response);
+            dispatch({
+                type: USER_AUTH,
+                payload: response.data.user
+            })
+        } catch (error) {
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: error.response.data.msg
+            })
+        }
+    }
+
     return (
         <authContext.Provider
             value={{ 
@@ -121,7 +146,8 @@ const AuthState: React.FC = ({ children }) => {
                 authorized: state.authorized,
                 message: state.message,
                 registerUser: registerUser,
-                logInUser: logInUser
+                logInUser: logInUser,
+                authUser: authUser
              }}
         >
             {children}

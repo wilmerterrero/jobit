@@ -2,12 +2,12 @@ type Roles = "admin" | "client" | "moderator";
 
 interface IUser { 
     id?: number;
-    username?: string;
-    email: string;
-    password: string;
+    Username?: string;
+    Email: string;
+    Password: string;
     signedIn?: Date;
-    profilePic?: string;
-    role?: Roles;
+    ProfilePic?: string;
+    Role?: Roles;
 }
 
 type UserContextType = {
@@ -18,6 +18,7 @@ type UserContextType = {
     message: null
     registerUser: (user: IUser) => void
     logInUser: (user: IUser) => void
+    authUser: () => void
 }
 
 interface IJob {
