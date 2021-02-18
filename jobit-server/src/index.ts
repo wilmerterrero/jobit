@@ -7,7 +7,7 @@ import { SearchConnectionConfig } from './config/connection.config';
 import passport from 'passport';
 import passportStrategy from './config/passport.config';
 import { config } from 'dotenv';
-import { pagination } from 'typeorm-pagination';
+import { pagination } from 'typeorm-pagination'; 
 
 //router imports
 import { AuthRouter } from './routes/auth.routes';

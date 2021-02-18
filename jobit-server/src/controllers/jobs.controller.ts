@@ -29,7 +29,7 @@ export default class JobsController extends AbstractRepository<JobsModel>{
 
             return res.status(200).json({msg: Pagination});
         }
-
+        
         return res.status(400).json({msg: "Something went wrong"}); 
     }
 

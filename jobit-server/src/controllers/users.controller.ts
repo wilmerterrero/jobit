@@ -14,7 +14,10 @@ export default class UsersController extends AbstractRepository<UsersModel>{
     public async Register(req: Request, res: Response): Promise<Response>{
         try{    
             const { Username, Email, Password, Role } = req.body;
-            if(!Username || !Email || !Password) return res.status(400).json({msg: 'Provide missing fields'})
+            if(!Username || !Email || !Password) {
+                console.log('Provide missing fields');
+                return res.status(400).json({msg: 'Provide missing fields'});
+            }
 
             body('Email').isEmail().notEmpty().withMessage('Please provide a valid Email');
             body('Password').isStrongPassword({minLength: 8}).notEmpty().withMessage('Please a Password greater than 8 digits');
@@ -23,6 +26,7 @@ export default class UsersController extends AbstractRepository<UsersModel>{
             if(!FindUser){
                 const CreateUsers = await UsersModel.create({username: Username, email: Email, password: Password, role: Role});
                 if(CreateUsers.role == "admin" && await UsersModel.count({ role: "admin" }) > 1) {
+                    console.log("There cannot be more than 1 admin");
                     return res.status(400).json({msg: "There cannot be more than 1 admin"});
                 }
 
@@ -30,6 +34,7 @@ export default class UsersController extends AbstractRepository<UsersModel>{
                 return res.status(201).json({msg: SaveUsers});  
             }
 
+            console.log("User already exists or it has admin role");
             return res.status(400).json({msg: 'User already exists or it has admin role'});
         }
         catch(error){
@@ -41,13 +46,17 @@ export default class UsersController extends AbstractRepository<UsersModel>{
     public async Login(req: Request, res: Response): Promise<Response> {
         try{
             const { Email, Password } = req.body;
-            if(!Email || !Password) return res.status(400).json({msg: 'Provide missing fields'});
+            if(!Email || !Password) {
+                console.log('Provide missing fields');
+                return res.status(400).json({msg: 'Provide missing fields'});
+            }
 
             body('Email').isEmail().notEmpty().withMessage('Please provide a valid Email');
             body('Password').isStrongPassword({minLength: 8}).notEmpty().withMessage('Please a Password greater than 8 digits');
 
             const FindUser = await UsersModel.findOne({email: Email});
             if(!FindUser){
+                console.log('User does not exist');
                 return res.status(400).json({msg: 'User does not exist'});
             }
 
@@ -57,9 +66,11 @@ export default class UsersController extends AbstractRepository<UsersModel>{
 
             const MatchPassword = await bcrypt.compare(Password, FindUser.password);
             if(MatchPassword){
+                console.log(Token);
                 return res.status(201).json({msg: Token});
             }
 
+            console.log('Error on logging in the user');
             return res.status(400).json({msg: 'Error on logging in the user'});
         }
         catch(error){
