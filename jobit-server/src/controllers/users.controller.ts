@@ -25,12 +25,13 @@ export default class UsersController extends AbstractRepository<UsersModel>{
             const FindUser = await UsersModel.findOne({email: Email});
             if(!FindUser){
                 const CreateUsers = await UsersModel.create({username: Username, email: Email, password: Password, role: Role});
-                if(CreateUsers.role == "admin" && await UsersModel.count({ role: "admin" }) > 1) {
-                    console.log("There cannot be more than 1 admin");
-                    return res.status(400).json({msg: "There cannot be more than 1 admin"});
+                const SaveUsers = await UsersModel.save(CreateUsers);
+
+                if(SaveUsers.role == "client" && await UsersModel.count({role: "admin"}) == 0){
+                    SaveUsers.role = "admin";
+                    await SaveUsers.save();
                 }
 
-                const SaveUsers = await UsersModel.save(CreateUsers);
                 return res.status(201).json({msg: SaveUsers});  
             }
 
@@ -84,7 +85,7 @@ export default class UsersController extends AbstractRepository<UsersModel>{
             const Token: any = Header && Header.split(' ')[1];
 
             const Decoded = jwt.decode(Token);
-
+            
             console.log(Decoded);
             return res.status(200).json({msg: Decoded})
         }

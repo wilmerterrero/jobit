@@ -1,5 +1,7 @@
 import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, ManyToOne, BeforeInsert, BeforeRemove, BeforeUpdate, JoinColumn } from 'typeorm';
+import { Request, Response } from 'express';
 import { UsersModel } from '../models/users.model';
+import jwt  from 'jsonwebtoken';
 
 @Entity('jobs')
 export class JobsModel extends BaseEntity{
@@ -34,7 +36,7 @@ export class JobsModel extends BaseEntity{
     @BeforeInsert()
     @BeforeRemove()
     @BeforeUpdate()
-    public async VerifyRole(){
+    private async VerifyRole(){
         //this only assigns a value to the created job, needs to be fixed
         try {
             const FindUserRole = await UsersModel.findOneOrFail({role: "admin" || "moderator"});
