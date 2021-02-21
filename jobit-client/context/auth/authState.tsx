@@ -40,7 +40,11 @@ const AuthState: React.FC = ({ children }) => {
          */
         message: null,
 
-        registerUser: (user: IUser) => {}
+        registerUser: (user: IUser) => {},
+
+        loginUser: (user: IUser) => {},
+
+        authUser: () => {},
     }
 
     //reducer for this state
@@ -123,11 +127,10 @@ const AuthState: React.FC = ({ children }) => {
         }
 
         try {
-            const response = await axiosClient.get('/auth/login');
-            console.log(response);
+            const response = await axiosClient.get('/auth/');
             dispatch({
                 type: USER_AUTH,
-                payload: response.data.user
+                payload: response.data.msg
             })
         } catch (error) {
             dispatch({

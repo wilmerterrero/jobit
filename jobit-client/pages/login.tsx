@@ -35,17 +35,17 @@ const Login: React.FC<LoginValues> = () => {
   return (
     <Layout>
       <div
-        className="bg-cover bg-center h-screen flex justify-center items-center"
+        className="bg-cover bg-center h-screen flex justify-center items-center space-y-4"
         style={{ backgroundImage: `url("img/pattern.svg")` }}
       >
         <form 
-          className="bg-gray-800 md:w-1/2 shadow-md rounded px-8 pt-6 pb-8 flex flex-col"
+          className="bg-gray-800 my-10 px-8 py-2 md:w-1/2 shadow-md rounded flex flex-wrap"
           onSubmit={formik.handleSubmit}
         >
           <h2 className="text-2xl text-yellow-200 font-bold mb-4 underline">
             Sign In
           </h2>
-          <div className="mb-4">
+          <div className="w-full">
 
             { formik.touched.Email && formik.errors.Email ? (
                     <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
@@ -72,7 +72,7 @@ const Login: React.FC<LoginValues> = () => {
             />
 
           </div>
-          <div className="mb-6">
+          <div className="w-full">
 
             { formik.touched.Password && formik.errors.Password ? (
                     <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">

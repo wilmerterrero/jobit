@@ -3,7 +3,7 @@ type Roles = "admin" | "client" | "moderator";
 interface IUser { 
     id?: number;
     Username?: string;
-    Email: string;
+    email: string;
     Password: string;
     signedIn?: Date;
     ProfilePic?: string;
@@ -34,5 +34,6 @@ interface IJob {
 
 type JobContextType = {
     jobs?: IJob[] | null,
-    job?: IJob | null
+    job?: IJob | null,
+    createJob?: (job: IJob) => void
 }

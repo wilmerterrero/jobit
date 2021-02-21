@@ -87,6 +87,10 @@ const Index = () => {
       />
     </Layout>
    );
+};
+
+Index.getInitialProps = async ({ query }) => {
+  
 }
  
 export default Index;

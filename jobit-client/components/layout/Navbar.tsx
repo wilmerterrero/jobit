@@ -1,7 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
+import authContext from "../../context/auth/authContext";
 
 const Navbar: React.FC = () => {
+  //auth context
+  const AuthContext = useContext(authContext);
+  const { user, authUser } = AuthContext;
+
+  //checking if the user is authenticated
+  useEffect(() => {
+      authUser();
+  }, []);
+
   const [navbarSM, setNavbarSM] = useState<boolean>(false);
   const [profileBar, setProfileBar] = useState<boolean>(false);
 
@@ -20,8 +30,6 @@ const Navbar: React.FC = () => {
       setProfileBar(false);
     }
   };
-
-  const user = false;
 
   return (
     <nav className="bg-gray-800">
@@ -84,9 +92,7 @@ const Navbar: React.FC = () => {
             </div>
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-4">
-                <Link
-                  href="/"
-                >
+                <Link href="/">
                   <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium">
                     Home
                   </a>
@@ -109,9 +115,16 @@ const Navbar: React.FC = () => {
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {user ? (
-              <div className="ml-3 relative">
+              <div className="flex ml-3 relative">
+                <div className="mr-3">
+                  <p
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium"
+                  >
+                    Hello, {user.email}
+                  </p>
+                </div>
                 <button
-                  className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                  className="bg-gray-800 text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                   id="user-menu"
                   aria-haspopup="true"
                   onClick={showProfileBar}
@@ -124,7 +137,9 @@ const Navbar: React.FC = () => {
                   />
                 </button>
                 <div
-                  className={`${profileBar ? null : "hidden" } origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5`}
+                  className={`${
+                    profileBar ? null : "hidden"
+                  } origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5`}
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="user-menu"
@@ -154,16 +169,12 @@ const Navbar: React.FC = () => {
               </div>
             ) : (
               <div className="ml-3 hidden lg:block md:block xl:block 2xl:block">
-                <Link
-                  href="/login"
-                >
+                <Link href="/login">
                   <a className=" text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 mr-3 rounded-md text-base font-medium">
                     Log In
                   </a>
                 </Link>
-                <Link
-                  href="/create-account"
-                >
+                <Link href="/create-account">
                   <a className="bg-gray-900 text-white px-3 py-2 rounded-md font-medium">
                     Create Account
                   </a>
@@ -203,20 +214,16 @@ const Navbar: React.FC = () => {
             Calendar
           </a>
           <div className="text-center">
-          <Link
-             href="/login"
-          >
-            <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-              Log In
-            </a>
-          </Link>
-          <Link
-            href="/create-account"
-          >
-            <a className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
-              Create Account
-            </a>
-          </Link>
+            <Link href="/login">
+              <a className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                Log In
+              </a>
+            </Link>
+            <Link href="/create-account">
+              <a className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                Create Account
+              </a>
+            </Link>
           </div>
         </div>
       </div>
