@@ -23,16 +23,17 @@ type UserContextType = {
 
 interface IJob {
     id?: number;
-    createdBy?: string;
-    position: string;
-    company: string;
-    description: string;
-    createdAt: string;
-    location: string;
-    type: string;
+    CreatedBy?: string;
+    Position: string;
+    Company: string;
+    Description: string;
+    CreatedAt: string;
+    Location: string;
+    Type: string;
 }
 
 type JobContextType = {
+    message?: null,
     jobs?: IJob[] | null,
     job?: IJob | null,
     createJob?: (job: IJob) => void
