@@ -13,18 +13,18 @@ export default class UsersController extends AbstractRepository<UsersModel>{
 
     public async Register(req: Request, res: Response): Promise<Response>{
         try{    
-            const { Username, Email, Password, Role } = req.body;
-            if(!Username || !Email || !Password) {
+            const { username, email, password, role } = req.body;
+            if(!username || !email || !password) {
                 console.log('Provide missing fields');
                 return res.status(400).json({msg: 'Provide missing fields'});
             }
 
-            body('Email').isEmail().notEmpty().withMessage('Please provide a valid Email');
-            body('Password').isStrongPassword({minLength: 8}).notEmpty().withMessage('Please a Password greater than 8 digits');
+            body('email').isEmail().notEmpty().withMessage('Please provide a valid email');
+            body('password').isStrongPassword({minLength: 8}).notEmpty().withMessage('Please a password greater than 8 digits');
             
-            const FindUser = await UsersModel.findOne({email: Email});
+            const FindUser = await UsersModel.findOne({email: email});
             if(!FindUser){
-                const CreateUsers = await UsersModel.create({username: Username, email: Email, password: Password, role: Role});
+                const CreateUsers = await UsersModel.create({username: username, email: email, password: password, role: role});
                 const SaveUsers = await UsersModel.save(CreateUsers);
 
                 if(SaveUsers.role == "client" && await UsersModel.count({role: "admin"}) == 0){
@@ -46,8 +46,8 @@ export default class UsersController extends AbstractRepository<UsersModel>{
 
     public async Login(req: Request, res: Response): Promise<Response> {
         try{
-            const { Email, Password } = req.body;
-            if(!Email || !Password) {
+            const { email, password } = req.body;
+            if(!email || !password) {
                 console.log('Provide missing fields');
                 return res.status(400).json({msg: 'Provide missing fields'});
             }
@@ -55,7 +55,7 @@ export default class UsersController extends AbstractRepository<UsersModel>{
             body('Email').isEmail().notEmpty().withMessage('Please provide a valid Email');
             body('Password').isStrongPassword({minLength: 8}).notEmpty().withMessage('Please a Password greater than 8 digits');
 
-            const FindUser = await UsersModel.findOne({email: Email});
+            const FindUser = await UsersModel.findOne({email: email});
             if(!FindUser){
                 console.log('User does not exist');
                 return res.status(400).json({msg: 'User does not exist'});
@@ -65,7 +65,7 @@ export default class UsersController extends AbstractRepository<UsersModel>{
                 expiresIn: '8h'
             });
 
-            const MatchPassword = await bcrypt.compare(Password, FindUser.password);
+            const MatchPassword = await bcrypt.compare(password, FindUser.password);
             if(MatchPassword){
                 return res.status(201).json({msg: Token})
             }
@@ -81,13 +81,13 @@ export default class UsersController extends AbstractRepository<UsersModel>{
 
     public async GetUserInfo(req: Request, res: Response): Promise<Response>{
         try {
-            const Header: any = await req.headers['authorization'];
-            const Token: any = await Header && Header.split(' ')[1];
+            const header: any = await req.headers['authorization'];
+            const token: any = await header && header.split(' ')[1];
 
-            const Decoded = await jwt.decode(Token);
+            const decoded = await jwt.decode(token);
             
-            console.log(Decoded);
-                return res.status(200).json({msg: Decoded})
+            console.log(decoded);
+                return res.status(200).json({msg: decoded})
         }
         catch(error) {
             console.log(error);
@@ -97,12 +97,12 @@ export default class UsersController extends AbstractRepository<UsersModel>{
 
     public async ChangeRole(req: Request, res: Response): Promise<Response>{
         try{
-            const { Email, Role } = req.body;
-            if(!Email || !Role) return res.status(400).json({msg: 'Provide missing fields'});
+            const { email, role } = req.body;
+            if(!email || !role) return res.status(400).json({msg: 'Provide missing fields'});
 
-            const FindUser = await UsersModel.findOne({email: Email});
+            const FindUser = await UsersModel.findOne({email: email});
             if(FindUser){
-                await UsersModel.update({email: Email}, {role: Role})
+                await UsersModel.update({email: email}, {role: role})
                 return res.status(200).json({msg: "User role has been updated"});
             }
 
