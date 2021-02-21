@@ -6,7 +6,7 @@ type Roles = "admin" | "client" | "moderator";
 @Entity('users')
 export class UsersModel extends BaseEntity{
     @PrimaryGeneratedColumn()
-    id: number;
+    id: number
 
     @Column({type: "varchar"})
     username: string;
@@ -27,7 +27,7 @@ export class UsersModel extends BaseEntity{
     role: Roles
 
     @BeforeInsert()
-    public async HashPassword(){
+    private async HashPassword(){
         const Salt = await bcrypt.genSalt(10);
         const Hash = await bcrypt.hash(this.password, Salt);
 

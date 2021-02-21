@@ -29,16 +29,16 @@ export default class JobsController extends AbstractRepository<JobsModel>{
 
             return res.status(200).json({msg: Pagination});
         }
-
+        
         return res.status(400).json({msg: "Something went wrong"}); 
     }
 
     public async PostJobs(req: Request, res: Response): Promise<Response>{
         try {
-            const { Location, Position, Company, Type } = req.body;
+            const { Location, Position, Company, Type, Description } = req.body;
             if(!Location || !Position || !Company || !Type) return res.status(401).json({msg: "Provide the necessary fields"});
             
-            const CreateJobs = await JobsModel.create({location: Location, position: Position, company: Company, type: Type});
+            const CreateJobs = await JobsModel.create({location: Location, position: Position, company: Company, type: Type, description: Description});
             const SaveJobs = await JobsModel.save(CreateJobs);
     
             return res.status(201).json({msg: SaveJobs});    

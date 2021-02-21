@@ -2,22 +2,23 @@ type Roles = "admin" | "client" | "moderator";
 
 interface IUser { 
     id?: number;
-    username?: string;
-    email: string;
-    password: string;
+    Username?: string;
+    Email: string;
+    Password: string;
     signedIn?: Date;
-    profilePic?: string;
-    role?: Roles;
+    ProfilePic?: string;
+    Role?: Roles;
 }
 
 type UserContextType = {
-    users: IUser[]
-    user: IUser
+    users: IUser[] | null
+    user: IUser | null
     token: string
     authorized: null
     message: null
     registerUser: (user: IUser) => void
     logInUser: (user: IUser) => void
+    authUser: () => void
 }
 
 interface IJob {
@@ -29,4 +30,9 @@ interface IJob {
     createdAt: string;
     location: string;
     type: string;
+}
+
+type JobContextType = {
+    jobs?: IJob[] | null,
+    job?: IJob | null
 }

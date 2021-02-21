@@ -2,45 +2,45 @@
   "name": "jobit-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/src/index.js",
   "scripts": {
-    "start": "node dist/src/index.js",
+    "dev": "NODE_ENV=dev tsc-watch --onSuccess \"node ./dist/src/index.js\"",
+    "test": "NODE_ENV=test mocha --check-leaks --exit dist/src/tests/*.spec.js",
     "tsc": "tsc",
-    "postinstall": "npm run tsc",
-    "transpile": "tsc && nodemon dist/src/index.js",
-    "test": "jest"
+    "postinstall": "npm run tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "chai": "^4.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-validator": "^6.9.2",
-    "jest": "^26.6.3",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^8.3.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.7",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "pg": "^8.5.1",
-    "ts-jest": "^26.5.1",
+    "ts-node": "^9.1.1",
     "typeorm": "^0.2.30",
     "typeorm-pagination": "^2.0.1",
     "typescript": "^4.1.4"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/chai": "^4.2.15",
     "@types/cors": "^2.8.9",
     "@types/express": "^4.17.11",
-    "@types/jest": "^26.0.20",
     "@types/jsonwebtoken": "^8.5.0",
+    "@types/mocha": "^8.2.0",
     "@types/morgan": "^1.9.2",
     "@types/node": "^14.14.22",
-    "@types/nodemon": "^1.19.0",
     "@types/passport": "^1.0.5",
     "@types/passport-jwt": "^3.0.3",
-    "@types/pg": "^7.14.9"
+    "@types/pg": "^7.14.9",
+    "tsc-watch": "^4.2.9"
   }
 }
