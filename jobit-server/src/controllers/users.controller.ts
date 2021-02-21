@@ -67,7 +67,7 @@ export default class UsersController extends AbstractRepository<UsersModel>{
 
             const MatchPassword = await bcrypt.compare(Password, FindUser.password);
             if(MatchPassword){
-                return res.status(201).json({msg: Token});
+                return res.status(201).json({msg: Token})
             }
 
             console.log('Error on logging in the user');
@@ -81,13 +81,13 @@ export default class UsersController extends AbstractRepository<UsersModel>{
 
     public async GetUserInfo(req: Request, res: Response): Promise<Response>{
         try {
-            const Header: any = req.headers['authorization'];
-            const Token: any = Header && Header.split(' ')[1];
+            const Header: any = await req.headers['authorization'];
+            const Token: any = await Header && Header.split(' ')[1];
 
-            const Decoded = jwt.decode(Token);
+            const Decoded = await jwt.decode(Token);
             
             console.log(Decoded);
-            return res.status(200).json({msg: Decoded})
+                return res.status(200).json({msg: Decoded})
         }
         catch(error) {
             console.log(error);
