@@ -89,8 +89,8 @@ const Index = () => {
    );
 };
 
-Index.getInitialProps = async ({ query }) => {
+// Index.getInitialProps = async ({ query }) => {
   
-}
+// }
  
 export default Index;
