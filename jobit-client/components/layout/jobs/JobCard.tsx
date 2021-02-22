@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 const JobCard: React.FC<JobContextType> = ({ job }) => {
 
@@ -25,7 +26,7 @@ const JobCard: React.FC<JobContextType> = ({ job }) => {
                 {position}
               </a>
             </h1>
-            <p className="text-white text-sm font-bold px-2 rounded-md bg-purple-700">{createdAt}</p>
+            <p className="text-white text-xs font-bold px-2 rounded-md bg-purple-700">{moment(createdAt).fromNow()}</p>
           </header>
 
           <main className="p-4">

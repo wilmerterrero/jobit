@@ -18,23 +18,23 @@ const CreateJob: React.FC<IJob> = () => {
   const { createJob, message } = useContext(jobContext);
 
   const initialCreateJobValues = {
-    Position: "",
-    Company: "",
-    Description: "",
-    CreatedAt: "",
-    Location: "",
-    Type: "",
+    position: "",
+    company: "",
+    description: "",
+    createdAt: "",
+    location: "",
+    type: "",
   };
 
   const formik = useFormik({
     initialValues: initialCreateJobValues,
     validationSchema: Yup.object({
-      Position: Yup.string().required("Job position is required"),
-      Company: Yup.string().required("Job company is required"),
-      Description: Yup.string().required("Job description is required"),
-      CreatedAt: Yup.date().required("Job date is required"),
-      Location: Yup.string().required("Job location is required"),
-      Type: Yup.string().required("Job type is required"),
+      position: Yup.string().required("Job position is required"),
+      company: Yup.string().required("Job company is required"),
+      description: Yup.string().required("Job description is required"),
+      createdAt: Yup.date().required("Job date is required"),
+      location: Yup.string().required("Job location is required"),
+      type: Yup.string().required("Job type is required"),
     }),
     onSubmit: (values) => {
       if (!user) {
@@ -62,93 +62,133 @@ const CreateJob: React.FC<IJob> = () => {
               Post a new Job
             </h2>
             <div className="w-full">
+            { formik.touched.position && formik.errors.position ? (
+                    <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
+                      <p className="font-bold">Error</p>
+                      <p>{ formik.errors.position }</p>
+                    </div>
+                  ) : null }
               <label
                 className="block text-white text-sm font-bold mb-2"
-                htmlFor="Position"
+                htmlFor="position"
               >
                 Position
               </label>
               <input
                 className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
-                id="Position"
+                id="position"
                 type="text"
                 placeholder="Job position"
-                value={formik.values.Position}
+                value={formik.values.position}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
             </div>
 
             <div className="w-full">
+            { formik.touched.company && formik.errors.company ? (
+                    <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
+                      <p className="font-bold">Error</p>
+                      <p>{ formik.errors.company }</p>
+                    </div>
+                  ) : null }
               <label
                 className="block text-white text-sm font-bold mb-2"
-                htmlFor="Company"
+                htmlFor="company"
               >
                 Company
               </label>
               <input
                 className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
-                id="Company"
+                id="company"
                 type="text"
                 placeholder="Company"
-                value={formik.values.Company}
+                value={formik.values.company}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
             </div>
 
             <div className="w-full">
+            { formik.touched.description && formik.errors.description ? (
+                    <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
+                      <p className="font-bold">Error</p>
+                      <p>{ formik.errors.description }</p>
+                    </div>
+                  ) : null }
+
               <label
                 className="block text-white text-sm font-bold mb-2"
-                htmlFor="Description"
+                htmlFor="description"
               >
                 Job description
               </label>
               <textarea
                 className="shadow appearance-none border border-red rounded w-full py-6 px-3 text-grey-darker mb-3"
-                id="Description"
-                value={formik.values.Description}
+                id="description"
+                value={formik.values.description}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               ></textarea>
             </div>
 
             <div className="w-full">
+            { formik.touched.createdAt && formik.errors.createdAt ? (
+                    <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
+                      <p className="font-bold">Error</p>
+                      <p>{ formik.errors.createdAt }</p>
+                    </div>
+                  ) : null }
+
               <label
                 className="block text-white text-sm font-bold mb-2"
-                htmlFor="Createdat"
+                htmlFor="createdAt"
               >
                 Created At
               </label>
               <input
                 className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
                 type="date"
-                id="CreatedAt"
-                value={formik.values.CreatedAt}
+                id="createdAt"
+                value={formik.values.createdAt}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
             </div>
 
             <div className="w-full">
+            { formik.touched.location && formik.errors.location ? (
+                    <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
+                      <p className="font-bold">Error</p>
+                      <p>{ formik.errors.location }</p>
+                    </div>
+                  ) : null }
+
               <label
                 className="block text-white text-sm font-bold mb-2"
-                htmlFor="Location"
+                htmlFor="location"
               >
                 Location
               </label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker mb-3"
-                id="Location"
+                id="location"
                 type="text"
                 placeholder="Job location"
-                value={formik.values.Location}
+                value={formik.values.location}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
             </div>
 
             <div className="w-full">
+            { formik.touched.type && formik.errors.type ? (
+                    <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
+                      <p className="font-bold">Error</p>
+                      <p>{ formik.errors.type }</p>
+                    </div>
+                  ) : null }
+
               <label
                 className="block text-white text-sm font-bold mb-2"
                 htmlFor="type"
@@ -157,10 +197,10 @@ const CreateJob: React.FC<IJob> = () => {
               </label>
               <input
                 className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
-                id="Type"
+                id="type"
                 type="text"
                 placeholder="Type of job"
-                value={formik.values.Type}
+                value={formik.values.type}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />

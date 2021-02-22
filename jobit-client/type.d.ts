@@ -2,12 +2,12 @@ type Roles = "admin" | "client" | "moderator";
 
 interface IUser { 
     id?: number;
-    Username?: string;
+    username?: string;
     email: string;
-    Password: string;
+    password: string;
     signedIn?: Date;
-    ProfilePic?: string;
-    Role?: Roles;
+    profilePic?: string;
+    role?: Roles;
 }
 
 type UserContextType = {
@@ -23,13 +23,13 @@ type UserContextType = {
 
 interface IJob {
     id?: number;
-    CreatedBy?: string;
-    Position: string;
-    Company: string;
-    Description: string;
-    CreatedAt: string;
-    Location: string;
-    Type: string;
+    createdBy?: string;
+    position: string;
+    company: string;
+    description: string;
+    createdAt: string;
+    location: string;
+    type: string;
 }
 
 type JobContextType = {
