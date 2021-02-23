@@ -40,7 +40,7 @@ export default class JobsController extends AbstractRepository<JobsModel>{
             const CreateJobs = await JobsModel.create({location: location, position: position, company: company, type: type, description: description});
             const SaveJobs = await JobsModel.save(CreateJobs);
     
-            return res.status(201).json({msg: SaveJobs, message: "Job has been created successfully"});    
+            return res.status(201).json({msg: SaveJobs});    
         } 
         catch (error) {
             console.log(error);
