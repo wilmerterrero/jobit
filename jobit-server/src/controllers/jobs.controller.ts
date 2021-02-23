@@ -34,10 +34,12 @@ export default class JobsController extends AbstractRepository<JobsModel>{
 
     public async PostJobs(req: Request, res: Response): Promise<Response>{
         try {
-            const { location, position, company, type, description } = req.body;
-            if(!location || !position || !company || !type) return res.status(401).json({msg: "Provide the necessary fields"});
+            const { location, position, company, type, description, category } = req.body;
+            if(!location || !position || !company || !type || !category) return res.status(401).json({msg: "Provide the necessary fields"});
             
-            const CreateJobs = await JobsModel.create({location: location, position: position, company: company, type: type, description: description});
+            const CreateJobs = await JobsModel.create({location: location, position: position, company: company, type: type, 
+                                                       description: description, categories: category});
+
             const SaveJobs = await JobsModel.save(CreateJobs);
     
             return res.status(201).json({msg: SaveJobs});    
@@ -50,11 +52,16 @@ export default class JobsController extends AbstractRepository<JobsModel>{
 
     public async UpdateJobs(req: Request, res: Response): Promise<Response>{
         try {
-            const { id, location, position, company, type } = req.body;
-            if(!id || !location || !position || !company || !type) return res.status(401).json({msg: "Provide the necessary fields"});
+            const { id, location, position, company, type, description, category } = req.body;
+            if(!id || !location || !position || !company || !type || !description || !category) {
+                return res.status(401).json({msg: "Provide the necessary fields"});
+            }
 
             const Job = await JobsModel.findOne({id: id});
-            if(Job) await JobsModel.update({id: id}, {location: location, position: position, company: company, type: type});
+            if(Job) {
+                await JobsModel.update({id: id}, {location: location, position: position, company: company, type: type, 
+                                                  description: description, categories: category});
+            }
 
             return res.status(201).json({msg: 'Job updated'})
         } 
