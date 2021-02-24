@@ -45,7 +45,6 @@ describe('Authentication tests', () => {
         .end((err, res) => {
             chai.should().not.exist(err);
             chai.expect(res).to.have.status(201);
-            chai.expect(res.body).to.have.property('msg');
             done();
         });
     });
