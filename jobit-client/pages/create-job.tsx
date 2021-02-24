@@ -22,6 +22,7 @@ const CreateJob: React.FC<IJob> = () => {
     company: "",
     description: "",
     createdAt: "",
+    categories: "",
     location: "",
     type: "",
   };
@@ -33,6 +34,7 @@ const CreateJob: React.FC<IJob> = () => {
       company: Yup.string().required("Job company is required"),
       description: Yup.string().required("Job description is required"),
       createdAt: Yup.date().required("Job date is required"),
+      categories: Yup.string().required("Job categories is required"),
       location: Yup.string().required("Job location is required"),
       type: Yup.string().required("Job type is required"),
     }),
@@ -48,26 +50,81 @@ const CreateJob: React.FC<IJob> = () => {
     <Layout>
       {message && <JobAlert />}
       <div
-        className="bg-cover bg-center h-screen flex justify-center items-center space-y-4"
+        className="bg-cover bg-center h-screen flex justify-center items-center space-y-4 my-72"
         style={{ backgroundImage: `url("img/pattern.svg")` }}
       >
         {!user ? (
           <Error404 message="Forbidden ⚠" />
         ) : (
           <form
-            className="bg-gray-800 my-10 px-8 py-2 shadow-md rounded flex flex-wrap"
+            className="bg-gray-800 px-8 py-2 shadow-md rounded flex flex-wrap md:w-4/5"
             onSubmit={formik.handleSubmit}
           >
             <h2 className="text-2xl text-yellow-200 w-full mb-3 font-bold underline">
               Post a new Job
             </h2>
             <div className="w-full">
-            { formik.touched.position && formik.errors.position ? (
-                    <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
-                      <p className="font-bold">Error</p>
-                      <p>{ formik.errors.position }</p>
-                    </div>
-                  ) : null }
+              {formik.touched.categories && formik.errors.categories ? (
+                <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
+                  <p className="font-bold">Error</p>
+                  <p>{formik.errors.categories}</p>
+                </div>
+              ) : null}
+              <label
+                className="block text-white text-sm font-bold mb-2"
+                htmlFor="category"
+              >
+                Position
+              </label>
+              <select 
+                className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
+                id="category"
+                value={formik.values.categories}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              >
+                <option value="">-- Select One --</option>
+                <option value="design">Design</option>
+                <option value="programming">Programming</option>
+                <option value="cloud">Cloud</option>
+              </select>
+            </div>
+
+            <div className="w-full">
+              {formik.touched.type && formik.errors.type ? (
+                <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
+                  <p className="font-bold">Error</p>
+                  <p>{formik.errors.type}</p>
+                </div>
+              ) : null}
+
+              <label
+                className="block text-white text-sm font-bold mb-2"
+                htmlFor="type"
+              >
+                Type
+              </label>
+              <select 
+                className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
+                id="type"
+                value={formik.values.type}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              >
+                <option value="">-- Select One --</option>
+                <option value="Full time">Full time</option>
+                <option value="Part Time">Part Time</option>
+                <option value="Freelance">Freelance</option>
+              </select>
+            </div>
+
+            <div className="w-full">
+              {formik.touched.position && formik.errors.position ? (
+                <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
+                  <p className="font-bold">Error</p>
+                  <p>{formik.errors.position}</p>
+                </div>
+              ) : null}
               <label
                 className="block text-white text-sm font-bold mb-2"
                 htmlFor="position"
@@ -86,12 +143,12 @@ const CreateJob: React.FC<IJob> = () => {
             </div>
 
             <div className="w-full">
-            { formik.touched.company && formik.errors.company ? (
-                    <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
-                      <p className="font-bold">Error</p>
-                      <p>{ formik.errors.company }</p>
-                    </div>
-                  ) : null }
+              {formik.touched.company && formik.errors.company ? (
+                <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
+                  <p className="font-bold">Error</p>
+                  <p>{formik.errors.company}</p>
+                </div>
+              ) : null}
               <label
                 className="block text-white text-sm font-bold mb-2"
                 htmlFor="company"
@@ -110,12 +167,12 @@ const CreateJob: React.FC<IJob> = () => {
             </div>
 
             <div className="w-full">
-            { formik.touched.description && formik.errors.description ? (
-                    <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
-                      <p className="font-bold">Error</p>
-                      <p>{ formik.errors.description }</p>
-                    </div>
-                  ) : null }
+              {formik.touched.description && formik.errors.description ? (
+                <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
+                  <p className="font-bold">Error</p>
+                  <p>{formik.errors.description}</p>
+                </div>
+              ) : null}
 
               <label
                 className="block text-white text-sm font-bold mb-2"
@@ -133,12 +190,12 @@ const CreateJob: React.FC<IJob> = () => {
             </div>
 
             <div className="w-full">
-            { formik.touched.createdAt && formik.errors.createdAt ? (
-                    <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
-                      <p className="font-bold">Error</p>
-                      <p>{ formik.errors.createdAt }</p>
-                    </div>
-                  ) : null }
+              {formik.touched.createdAt && formik.errors.createdAt ? (
+                <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
+                  <p className="font-bold">Error</p>
+                  <p>{formik.errors.createdAt}</p>
+                </div>
+              ) : null}
 
               <label
                 className="block text-white text-sm font-bold mb-2"
@@ -157,12 +214,12 @@ const CreateJob: React.FC<IJob> = () => {
             </div>
 
             <div className="w-full">
-            { formik.touched.location && formik.errors.location ? (
-                    <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
-                      <p className="font-bold">Error</p>
-                      <p>{ formik.errors.location }</p>
-                    </div>
-                  ) : null }
+              {formik.touched.location && formik.errors.location ? (
+                <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
+                  <p className="font-bold">Error</p>
+                  <p>{formik.errors.location}</p>
+                </div>
+              ) : null}
 
               <label
                 className="block text-white text-sm font-bold mb-2"
@@ -176,31 +233,6 @@ const CreateJob: React.FC<IJob> = () => {
                 type="text"
                 placeholder="Job location"
                 value={formik.values.location}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-            </div>
-
-            <div className="w-full">
-            { formik.touched.type && formik.errors.type ? (
-                    <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
-                      <p className="font-bold">Error</p>
-                      <p>{ formik.errors.type }</p>
-                    </div>
-                  ) : null }
-
-              <label
-                className="block text-white text-sm font-bold mb-2"
-                htmlFor="type"
-              >
-                Type
-              </label>
-              <input
-                className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
-                id="type"
-                type="text"
-                placeholder="Type of job"
-                value={formik.values.type}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />

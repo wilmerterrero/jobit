@@ -1,4 +1,5 @@
 type Roles = "admin" | "client" | "moderator";
+type Categories = "design" | "programming" | "cloud";
 
 interface IUser { 
     id?: number;
@@ -29,6 +30,7 @@ interface IJob {
     description: string;
     createdAt: string;
     location: string;
+    categories: Categories | string;
     type: string;
 }
 

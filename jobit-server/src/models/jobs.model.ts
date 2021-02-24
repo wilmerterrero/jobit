@@ -1,6 +1,8 @@
 import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { UsersModel } from '../models/users.model';
 
+type Categories = "design" | "programming" | "cloud"
+
 @Entity('jobs')
 export class JobsModel extends BaseEntity{
     @PrimaryGeneratedColumn()
@@ -20,6 +22,9 @@ export class JobsModel extends BaseEntity{
 
     @Column({type: 'text', nullable: true})
     description: string;
+
+    @Column({type: 'enum', enum: ["design", "programming", "cloud"]})
+    categories: Categories;
 
     @Column({type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
     createdAt: Date;

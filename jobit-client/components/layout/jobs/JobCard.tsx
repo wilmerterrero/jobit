@@ -3,7 +3,16 @@ import Link from "next/link";
 import moment from "moment";
 
 const JobCard: React.FC<JobContextType> = ({ job }) => {
-  const { id, position, description, createdAt, createdBy, company } = job;
+  const {
+    id,
+    position,
+    description,
+    createdAt,
+    createdBy,
+    company,
+    categories,
+  } = job;
+  console.log(categories);
 
   const fixedDescription =
     description.length > 100 ? `${description.substr(0, 80)}...` : description;
@@ -13,6 +22,9 @@ const JobCard: React.FC<JobContextType> = ({ job }) => {
       {/* START COLUMN*/}
       <div className="my-1 px-1 py-2 md:py-0 md:w-1/2 lg:my-4 lg:px-10 lg:w-1/3">
         <article className="overflow-hidden rounded-lg shadow-lg bg-white">
+          <p className="text-white text-xs font-bold px-2 rounded-lg bg-red-500">
+            {categories}
+          </p>
           <Link href="/jobs/[id]" as={`/jobs/${id}`}>
             <img
               alt="Placeholder"
@@ -51,13 +63,6 @@ const JobCard: React.FC<JobContextType> = ({ job }) => {
               <p className="ml-2 text-sm font-bold">
                 {createdBy} | {company}
               </p>
-            </a>
-            <a
-              className="no-underline text-grey-darker hover:text-red-dark"
-              href="#"
-            >
-              <span className="hidden">Like</span>
-              <i className="fa fa-heart"></i>
             </a>
           </footer>
         </article>
