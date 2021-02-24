@@ -7,7 +7,6 @@ import { SearchConnectionConfig } from './config/connection.config';
 import passport from 'passport';
 import passportStrategy from './config/passport.config';
 import { config } from 'dotenv';
-import { pagination } from 'typeorm-pagination'; 
 
 //router imports
 import { AuthRouter } from './routes/auth.routes';
@@ -29,7 +28,6 @@ class Server{
         this.app.use(express.urlencoded({extended: false}));
         this.app.use(express.json());
         this.app.use(cors());
-        this.app.use(pagination);
         this.app.use(morgan('dev'));
         this.app.use(passport.initialize());
 

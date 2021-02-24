@@ -28,7 +28,6 @@
     "pg": "^8.5.1",
     "ts-node": "^9.1.1",
     "typeorm": "^0.2.30",
-    "typeorm-pagination": "^2.0.1",
     "typescript": "^4.1.4"
   },
   "devDependencies": {

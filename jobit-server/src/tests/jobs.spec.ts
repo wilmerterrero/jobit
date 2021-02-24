@@ -46,7 +46,7 @@ describe('Jobs tests', () => {
 
         it('Should retrieve one job from database', (done) => {
             chai.request(url).get('/jobs/one')
-            .send({
+            .query({
                 id: 1
             })
             .end(async(err, res) => {
@@ -59,7 +59,7 @@ describe('Jobs tests', () => {
 
         it('Should retrieve paginated jobs from database', (done) => {
             chai.request(url).get('/jobs/pages')
-            .send({
+            .query({
                 skip: 1,
                 take: 3
             })
@@ -98,8 +98,10 @@ describe('Jobs tests', () => {
             chai.request(url).put('/jobs/update')
             .auth(token, { type: 'bearer'})
             .set('Authorization', `Bearer ${token}`)
-            .send({
+            .query({
                 id: 1,
+            })
+            .send({
                 location: data.location,
                 position: data.position,
                 company: data.company,
@@ -131,7 +133,7 @@ describe('Jobs tests', () => {
             chai.request(url).delete('/jobs/delete/one')
             .auth(token, { type: 'bearer'})
             .set('Authorization', `Bearer ${token}`)
-            .send({
+            .query({
                 id: 1
             })
             .end((err, res) => {

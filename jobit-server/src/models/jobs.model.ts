@@ -1,4 +1,4 @@
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, BeforeInsert } from 'typeorm';
 import { UsersModel } from '../models/users.model';
 
 type Categories = "design" | "programming" | "cloud"
@@ -32,4 +32,10 @@ export class JobsModel extends BaseEntity{
     @ManyToOne(() => UsersModel, user => user.id)
     @JoinColumn()
     createdBy: UsersModel;
+
+    @BeforeInsert()
+    private async assignId(){
+        const findUser = await UsersModel.findOneOrFail({role: "admin" || "moderator"});
+        this.createdBy = findUser;
+    }
 }

@@ -21,12 +21,15 @@ export default class JobsController extends AbstractRepository<JobsModel>{
     }
 
     public async PaginatedJobs(req: Request, res: Response): Promise<Response> {
-        const { skip, take } = req.body;
+        const { skip, take } = req.params;
+        
+        if(parseInt(skip) >= 0 && parseInt(take) > 0){
+            const Pagination = await JobsModel.find({skip: parseInt(skip), take: parseInt(take)});
+            const allPages = await JobsModel.count();
+            const pageCount =  Math.floor(allPages / parseInt(take));   
+            const currentPage = Math.floor(parseInt(skip) / pageCount);
 
-        if(skip >= 0 && take > 0){
-            const Pagination = await JobsModel.find({skip: skip, take: take});
-
-            return res.status(200).json({msg: Pagination});
+            return res.status(200).json({totalCount: allPages, perPage: take, pageCount: pageCount, currentPage: currentPage, info: Pagination});
         }
         
         return res.status(400).json({msg: "Something went wrong"}); 
@@ -52,14 +55,15 @@ export default class JobsController extends AbstractRepository<JobsModel>{
 
     public async UpdateJobs(req: Request, res: Response): Promise<Response>{
         try {
-            const { id, location, position, company, type, description, category } = req.body;
+            const { location, position, company, type, description, category } = req.body;
+            const { id } = req.params;
             if(!id || !location || !position || !company || !type || !description || !category) {
                 return res.status(401).json({msg: "Provide the necessary fields"});
             }
 
-            const Job = await JobsModel.findOne({id: id});
+            const Job = await JobsModel.findOne({id: parseInt(id)});
             if(Job) {
-                await JobsModel.update({id: id}, {location: location, position: position, company: company, type: type, 
+                await JobsModel.update({id: parseInt(id)}, {location: location, position: position, company: company, type: type, 
                                                   description: description, categories: category});
             }
 
@@ -86,10 +90,10 @@ export default class JobsController extends AbstractRepository<JobsModel>{
 
     public async DeleteOneJob(req: Request, res: Response): Promise<Response>{
         try {
-            const { id } = req.body;
+            const { id } = req.params;
             if(!id) return res.status(401).json({msg: "Provide the necessary fields"});
 
-            const Job = await JobsModel.findOne({id: id});
+            const Job = await JobsModel.findOne({id: parseInt(id)});
             if(Job) await JobsModel.remove(Job);
 
             return res.status(201).json({msg: 'Job removed'})
