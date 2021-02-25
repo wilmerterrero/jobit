@@ -1,4 +1,5 @@
 import { JobsModel } from '../models/jobs.model';
+import { UsersModel } from '../models/users.model';
 import { Request, Response } from 'express';    
 import { EntityRepository, AbstractRepository } from 'typeorm';
 
@@ -37,11 +38,23 @@ export default class JobsController extends AbstractRepository<JobsModel>{
 
     public async PostJobs(req: Request, res: Response): Promise<Response>{
         try {
+            const header: string = req.headers['authorization']!;
+            const token: string = header.split(' ')[1];
+
+            const base64Payload = token.split('.')[1];
+            const payload = Buffer.from(base64Payload, 'base64');
+            
+            const parsedPayload = JSON.parse(payload.toString());
+
+            const { id } = parsedPayload;
+
+            const user: UsersModel = await UsersModel.findOneOrFail({where: {id: id}});
+
             const { location, position, company, type, description, category } = req.body;
             if(!location || !position || !company || !type || !category) return res.status(401).json({msg: "Provide the necessary fields"});
             
             const CreateJobs = await JobsModel.create({location: location, position: position, company: company, type: type, 
-                                                       description: description, categories: category});
+                                                       description: description, categories: category, createdBy: user});
 
             const SaveJobs = await JobsModel.save(CreateJobs);
     

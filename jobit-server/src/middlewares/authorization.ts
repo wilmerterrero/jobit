@@ -19,7 +19,7 @@ export const isAdmin = async(req: Request, res: Response, next: NextFunction) =>
     } 
     catch(error) {
         console.log(error);
-        return res.status(400).json({msg: error})        
+        return res.status(400).json({msg: error});
     }
 }
 
@@ -42,6 +42,6 @@ export const isAdminOrModerator = async(req: Request, res: Response, next: NextF
     } 
     catch (error) {
         console.log(error);
-        return res.status(400).json({msg: error})        
+        return res.status(400).json({msg: error});     
     }
 }
