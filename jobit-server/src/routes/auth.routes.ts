@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import passport from 'passport';
 import UsersController from '../controllers/users.controller';
-import { isAdmin } from '../middlewares/isAdmin';
+import { isAdmin } from '../middlewares/authorization';
 
 class AuthRoutes{
     public router: express.Router;

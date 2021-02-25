@@ -32,10 +32,4 @@ export class JobsModel extends BaseEntity{
     @ManyToOne(() => UsersModel, user => user.id)
     @JoinColumn()
     createdBy: UsersModel;
-
-    @BeforeInsert()
-    private async assignId(){
-        const findUser = await UsersModel.findOneOrFail({role: "admin" || "moderator"});
-        this.createdBy = findUser;
-    }
 }
