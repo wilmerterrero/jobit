@@ -74,6 +74,29 @@ describe('Jobs tests', () => {
                     chai.expect(res).to.have.status(201);
                     chai.expect(res.body).to.have.property('msg').which.is.an('object');
                 });
+
+                chai.request(url).put(`/jobs/update/${1}`)
+                .auth(token, {type: 'bearer'})
+                .send({
+                    location: data.location,
+                    position: data.position,
+                    company: data.company,
+                    type: data.type,
+                    description: data.description,
+                    category: data.category
+                })
+                .end((err, res) => {
+                    chai.should().not.exist(err);
+                    chai.expect(res).to.have.status(201);
+                    chai.expect(res.body).to.have.property('msg').which.is.an('object');
+                });
+
+                chai.request(url).delete(`/jobs/delete/one/${1}`)
+                .auth(token, {type: 'bearer'})
+                .end((err, res) => {
+                    chai.should().not.exist(err);
+                    chai.expect(res).to.have.status(201);
+                });
             });    
             done();
         });
