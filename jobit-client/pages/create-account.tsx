@@ -107,7 +107,7 @@ const CreateAccount: React.FC<CreateAccountValues> = () => {
 
           </div>
 
-          <div className="mb-6">
+          <div className="w-full mb-6">
 
             { formik.touched.password && formik.errors.password ? (
                     <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
@@ -124,7 +124,7 @@ const CreateAccount: React.FC<CreateAccountValues> = () => {
             </label>
 
             <input
-              className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
               id="password"
               type="password"
               placeholder="Password"
@@ -135,7 +135,7 @@ const CreateAccount: React.FC<CreateAccountValues> = () => {
 
           </div>
 
-          <div className="block md:flex items-center justify-between">
+          <div className="block w-full pb-5">
             <button
               className="bg-gray-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block"
               type="submit"

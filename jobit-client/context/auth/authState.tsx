@@ -97,7 +97,7 @@ const AuthState: React.FC = ({ children }) => {
             //passing the token to the state
             dispatch({
                 type: LOGIN_SUCCESS,
-                payload: response.data.msg
+                payload: response.data
             })
 
         } catch (error) {
@@ -130,7 +130,7 @@ const AuthState: React.FC = ({ children }) => {
             const response = await axiosClient.get('/auth/');
             dispatch({
                 type: USER_AUTH,
-                payload: response.data.msg
+                payload: response.data
             })
         } catch (error) {
             dispatch({
