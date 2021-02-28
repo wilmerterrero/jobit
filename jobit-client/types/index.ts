@@ -11,3 +11,6 @@ export const LOG_OUT = 'LOG_OUT';
 
 export const CREATE_JOB_SUCCESS = 'CREATE_JOB_SUCCESS';
 export const CREATE_JOB_ERROR = 'CREATE_JOB_ERROR';
+
+export const GET_JOBS_SUCCESS = 'GET_JOBS_SUCCESS';
+export const GET_JOBS_ERROR = 'GET_JOBS_ERROR';

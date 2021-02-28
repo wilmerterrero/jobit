@@ -12,6 +12,8 @@ const Job: React.FC = () => {
     position: "",
     company: "",
     description: "",
+    categories: "",
+    createdBy: "",
     createdAt: "",
     location: "",
     type: "",

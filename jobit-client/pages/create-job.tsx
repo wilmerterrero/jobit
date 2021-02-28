@@ -22,6 +22,7 @@ const CreateJob: React.FC<IJob> = () => {
     company: "",
     description: "",
     createdAt: "",
+    createdBy: "user@user.com",
     categories: "",
     location: "",
     type: "",
@@ -42,6 +43,7 @@ const CreateJob: React.FC<IJob> = () => {
       if (!user) {
         return router.push("/login");
       }
+      values.createdBy = user.email;
       createJob(values);
     },
   });
@@ -72,13 +74,13 @@ const CreateJob: React.FC<IJob> = () => {
               ) : null}
               <label
                 className="block text-white text-sm font-bold mb-2"
-                htmlFor="category"
+                htmlFor="categories"
               >
                 Position
               </label>
               <select 
                 className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
-                id="category"
+                id="categories"
                 value={formik.values.categories}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}

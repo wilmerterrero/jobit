@@ -3,7 +3,9 @@ import jobReducer from './jobReducer';
 import jobContext from './jobContext';
 import axiosClient from '../../config/axios';
 
-import { 
+import {
+    GET_JOBS_SUCCESS,
+    GET_JOBS_ERROR, 
     CREATE_JOB_SUCCESS,
     CREATE_JOB_ERROR, 
     CLEAN_ALERT } from '../../types';
@@ -14,16 +16,32 @@ import {
         message: null,
         job: null,
         jobs: null,
+        getJobs: () => {},
         createJob: (job: IJob) => {}
     }
 
     //reducer for this state
     const [state, dispatch] = useReducer(jobReducer, initialState);
 
+    const getJobs = async () => {
+        try {
+            const response = await axiosClient.get('/jobs/');
+            console.log(response.data.msg);
+            dispatch({
+                type: GET_JOBS_SUCCESS,
+                payload: response.data.msg
+            })
+        } catch (error) {
+            dispatch({
+                type: GET_JOBS_ERROR,
+                payload: error.response.data.msg
+            })
+        }
+    }
+
     const createJob = async (job: IJob) => {
         try {
             const response = await axiosClient.post('/jobs/publish', job);
-            console.log(response);
             dispatch({
                 type: CREATE_JOB_SUCCESS,
                 payload: response.data.msg
@@ -49,6 +67,7 @@ import {
                 message: state.message,
                 jobs: state.jobs,
                 job: state.job,
+                getJobs: getJobs,
                 createJob: createJob
             }}
         >
