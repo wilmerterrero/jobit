@@ -86,7 +86,7 @@ const Navbar: React.FC = () => {
               />
               <img
                 className="hidden lg:block h-8 w-auto"
-                src="img/jobit-logo-indigo-500-mark-white-text.svg"
+                src="../img/jobit-logo-indigo-500-mark-white-text.svg"
                 alt="Workflow"
               />
             </div>

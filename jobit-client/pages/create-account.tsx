@@ -62,14 +62,14 @@ const CreateAccount: React.FC<CreateAccountValues> = () => {
 
             <label
               className="block text-white text-sm font-bold mb-2"
-              htmlFor="Username"
+              htmlFor="username"
             >
               Username
             </label>
 
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-              id="Username"
+              id="username"
               type="text"
               placeholder="Username"
               value={formik.values.username}
@@ -90,14 +90,14 @@ const CreateAccount: React.FC<CreateAccountValues> = () => {
 
             <label
               className="block text-white text-sm font-bold mb-2"
-              htmlFor="Email"
+              htmlFor="email"
             >
               Email
             </label>
 
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-              id="Email"
+              id="email"
               type="email"
               placeholder="Email"
               value={formik.values.email}
@@ -118,14 +118,14 @@ const CreateAccount: React.FC<CreateAccountValues> = () => {
 
             <label
               className="block text-white text-sm font-bold mb-2"
-              htmlFor="Password"
+              htmlFor="password"
             >
               Password
             </label>
 
             <input
               className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
-              id="Password"
+              id="password"
               type="password"
               placeholder="Password"
               value={formik.values.password}

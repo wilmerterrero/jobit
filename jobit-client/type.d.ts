@@ -38,5 +38,6 @@ type JobContextType = {
     message?: null,
     jobs?: IJob[] | null,
     job?: IJob | null,
+    getJobs?: () => void,
     createJob?: (job: IJob) => void
 }

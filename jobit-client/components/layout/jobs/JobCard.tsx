@@ -12,7 +12,8 @@ const JobCard: React.FC<JobContextType> = ({ job }) => {
     company,
     categories,
   } = job;
-  console.log(categories);
+
+  console.log(createdBy);
 
   const fixedDescription =
     description.length > 100 ? `${description.substr(0, 80)}...` : description;
