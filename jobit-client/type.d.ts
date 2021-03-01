@@ -25,7 +25,6 @@ type UserContextType = {
 
 interface IJob {
     id?: number;
-    createdBy?: string;
     position: string;
     company: string;
     description: string;
