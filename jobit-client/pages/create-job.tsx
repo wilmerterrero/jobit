@@ -22,7 +22,6 @@ const CreateJob: React.FC<IJob> = () => {
     company: "",
     description: "",
     createdAt: "",
-    createdBy: "user@user.com",
     categories: "",
     location: "",
     type: "",
@@ -43,7 +42,6 @@ const CreateJob: React.FC<IJob> = () => {
       if (!user) {
         return router.push("/login");
       }
-      values.createdBy = user.email;
       createJob(values);
     },
   });
@@ -52,8 +50,7 @@ const CreateJob: React.FC<IJob> = () => {
     <Layout>
       {message && <JobAlert />}
       <div
-        className="bg-cover bg-center h-screen flex justify-center items-center space-y-4 my-72"
-        style={{ backgroundImage: `url("img/pattern.svg")` }}
+        className="bg-cover bg-blue-800 bg-center h-screen flex justify-center items-center space-y-4 my-10"
       >
         {!user ? (
           <Error404 message="Forbidden ⚠" />

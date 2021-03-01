@@ -4,10 +4,12 @@ import Link from "next/link";
 import DataTable from "react-data-table-component";
 import Layout from "../../components/layout/Layout";
 
+import authContext from "../../context/auth/authContext";
 import jobContext from "../../context/job/jobContext";
 
 import DeleteIcon from "../../components/layout/icons/delete";
 import EditIcon from "../../components/layout/icons/edit";
+import Error404 from "../../components/layout/Error404";
 
 const TextField = styled.input`
   height: 32px;
@@ -58,6 +60,9 @@ const FilterComponent = ({ filterJob, onFilter, onClear }) => (
 );
 
 const Dashboard: React.FC = () => {
+  const AuthContext = useContext(authContext);
+  const { user } = AuthContext;
+
   const JobContext = useContext(jobContext);
   const { jobs, getJobs } = JobContext;
 
@@ -137,18 +142,22 @@ const Dashboard: React.FC = () => {
   return (
     <Layout>
       <div
-        className="bg-cover bg-center h-screen space-y-4"
+        className="bg-cover bg-center h-screen"
         style={{ backgroundImage: `url("../img/pattern.svg")` }}
       >
-        <div className="p-4">
-          <DataTable
-            title="Jobs"
-            pagination
-            columns={columns}
-            data={filteredJobs}
-            subHeader
-            subHeaderComponent={subHeaderComponentMemo}
-          />
+        <div className="pt-36">
+          {!user && user?.role === "client" ? (
+            <Error404 message="Forbidden ⚠" />
+          ) : (
+            <DataTable
+              title="Jobs"
+              pagination
+              columns={columns}
+              data={filteredJobs}
+              subHeader
+              subHeaderComponent={subHeaderComponentMemo}
+            />
+          )}
         </div>
       </div>
     </Layout>

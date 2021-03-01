@@ -140,6 +140,12 @@ const AuthState: React.FC = ({ children }) => {
         }
     }
 
+    const logOutUser = () => {
+        dispatch({
+            type: LOG_OUT
+        })
+    }
+
     return (
         <authContext.Provider
             value={{ 
@@ -150,6 +156,7 @@ const AuthState: React.FC = ({ children }) => {
                 message: state.message,
                 registerUser: registerUser,
                 logInUser: logInUser,
+                logOutUser: logOutUser,
                 authUser: authUser
              }}
         >

@@ -19,6 +19,7 @@ type UserContextType = {
     message: null
     registerUser: (user: IUser) => void
     logInUser: (user: IUser) => void
+    logOutUser: () => void
     authUser: () => void
 }
 
