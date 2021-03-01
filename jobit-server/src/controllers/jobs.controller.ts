@@ -15,7 +15,7 @@ export default class JobsController extends AbstractRepository<JobsModel>{
 
     public async GetOneJob(req: Request, res: Response): Promise<Response>{
         const { id } = req.params;
-        if(!id) return res.status(401).json({msg:"Provide the id field or id value was not a number"});
+        if(!id) return res.status(400).json({msg:"Provide the id field or id value was not a number"});
 
         const Job = await JobsModel.findOne({id: parseInt(id)});
         return res.status(200).json({msg: Job});
@@ -40,22 +40,22 @@ export default class JobsController extends AbstractRepository<JobsModel>{
         try {
             const header: string = req.headers['authorization']!;
             const token: string = header.split(' ')[1];
-
+    
             const base64Payload = token.split('.')[1];
             const payload = Buffer.from(base64Payload, 'base64');
-            
+                
             const parsedPayload = JSON.parse(payload.toString());
-
+        
             const { id } = parsedPayload;
 
-            const user: UsersModel = await UsersModel.findOneOrFail({where: {id: id}});
+            const user = await UsersModel.findOneOrFail({id: id});
 
             const { location, position, company, type, description, category } = req.body;
-            if(!location || !position || !company || !type || !category) return res.status(401).json({msg: "Provide the necessary fields"});
+            if(!location || !position || !company || !type || !category) return res.status(404).json({msg: "Provide the necessary fields"});
             
             const CreateJobs = await JobsModel.create({location: location, position: position, company: company, type: type, 
                                                        description: description, categories: category, createdBy: user});
-                                     
+                                                                  
             const SaveJobs = await JobsModel.save(CreateJobs);
                 
             console.log('Job created successfully');
@@ -72,7 +72,7 @@ export default class JobsController extends AbstractRepository<JobsModel>{
             const { location, position, company, type, description, category } = req.body;
             const { id } = req.params;
             if(!id || !location || !position || !company || !type || !description || !category) {
-                return res.status(401).json({msg: "Provide the necessary fields"});
+                return res.status(400).json({msg: "Provide the necessary fields"});
             }
 
             const Job = await JobsModel.findOne({id: parseInt(id)});
@@ -105,7 +105,7 @@ export default class JobsController extends AbstractRepository<JobsModel>{
     public async DeleteOneJob(req: Request, res: Response): Promise<Response>{
         try {
             const { id } = req.params;
-            if(!id) return res.status(401).json({msg: "Provide the necessary fields"});
+            if(!id) return res.status(400).json({msg: "Provide the necessary fields"});
 
             const Job = await JobsModel.findOne({id: parseInt(id)});
             if(Job) await JobsModel.remove(Job);

@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 import JobsController  from '../controllers/jobs.controller';
 import passport from 'passport';
 import { isAdmin, isAdminOrModerator } from '../middlewares/authorization';
-    
+
 class JobsRoutes{
     public router: express.Router;
 

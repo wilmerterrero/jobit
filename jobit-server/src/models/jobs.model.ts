@@ -1,4 +1,4 @@
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, BeforeInsert } from 'typeorm';
+import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { UsersModel } from '../models/users.model';
 
 type Categories = "design" | "programming" | "cloud"

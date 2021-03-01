@@ -44,6 +44,7 @@
     "@types/passport": "^1.0.5",
     "@types/passport-jwt": "^3.0.3",
     "@types/pg": "^7.14.9",
+    "log4js": "^6.3.0",
     "tsc-watch": "^4.2.9"
   }
 }

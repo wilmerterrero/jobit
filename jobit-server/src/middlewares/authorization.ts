@@ -1,6 +1,5 @@
 import { UsersModel } from '../models/users.model';
 import { Request, Response, NextFunction } from 'express';
-import { isElementAccessExpression } from 'typescript';
 
 export const isAdmin = async(req: Request, res: Response, next: NextFunction) => {
     try {
@@ -36,11 +35,7 @@ export const isAdminOrModerator = async(req: Request, res: Response, next: NextF
 
         const { role } = parsedPayload;
 
-        //const findAdmin: UsersModel = await UsersModel.findOneOrFail({role: "admin"});
-        //const findModerator: UsersModel = await UsersModel.findOneOrFail({role: "moderator"});
-
-        //findAdmin.role == role || findModerator.role == role ? next() : res.status(401).json({msg: "not an admin or moderator, access denied"});
-        if(role == "admin"){
+        if(role == "admin"){            
             next();
         }
         else if(role == "moderator"){
