@@ -28,7 +28,6 @@ interface IJob {
     position: string;
     company: string;
     description: string;
-    createdAt: string;
     location: string;
     categories: Categories | string;
     type: string;

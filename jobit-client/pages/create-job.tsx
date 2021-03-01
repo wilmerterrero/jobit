@@ -21,7 +21,6 @@ const CreateJob: React.FC<IJob> = () => {
     position: "",
     company: "",
     description: "",
-    createdAt: "",
     categories: "",
     location: "",
     type: "",
@@ -33,7 +32,6 @@ const CreateJob: React.FC<IJob> = () => {
       position: Yup.string().required("Job position is required"),
       company: Yup.string().required("Job company is required"),
       description: Yup.string().required("Job description is required"),
-      createdAt: Yup.date().required("Job date is required"),
       categories: Yup.string().required("Job categories is required"),
       location: Yup.string().required("Job location is required"),
       type: Yup.string().required("Job type is required"),
@@ -73,7 +71,7 @@ const CreateJob: React.FC<IJob> = () => {
                 className="block text-white text-sm font-bold mb-2"
                 htmlFor="categories"
               >
-                Position
+                Category
               </label>
               <select 
                 className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
@@ -83,9 +81,9 @@ const CreateJob: React.FC<IJob> = () => {
                 onBlur={formik.handleBlur}
               >
                 <option value="">-- Select One --</option>
-                <option value="design">Design</option>
-                <option value="programming">Programming</option>
-                <option value="cloud">Cloud</option>
+                <option value="design">design</option>
+                <option value="programming">programming</option>
+                <option value="cloud">cloud</option>
               </select>
             </div>
 
@@ -187,7 +185,7 @@ const CreateJob: React.FC<IJob> = () => {
                 onBlur={formik.handleBlur}
               ></textarea>
             </div>
-
+            {/*
             <div className="w-full">
               {formik.touched.createdAt && formik.errors.createdAt ? (
                 <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
@@ -211,7 +209,7 @@ const CreateJob: React.FC<IJob> = () => {
                 onBlur={formik.handleBlur}
               />
             </div>
-
+              */}
             <div className="w-full">
               {formik.touched.location && formik.errors.location ? (
                 <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">

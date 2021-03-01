@@ -41,7 +41,14 @@ import {
 
     const createJob = async (job: IJob) => {
         try {
-            const response = await axiosClient.post('/jobs/publish', job);
+            const response = await axiosClient.post('/jobs/publish', {
+                position: job.position,
+                company: job.company,
+                description: job.description,
+                category: job.categories,
+                type: job.type,
+                location: job.location
+            });
             dispatch({
                 type: CREATE_JOB_SUCCESS,
                 payload: response.data.msg
