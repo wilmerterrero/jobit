@@ -146,7 +146,7 @@ const Dashboard: React.FC = () => {
         style={{ backgroundImage: `url("../img/pattern.svg")` }}
       >
         <div className="pt-36">
-          {!user && user?.role === "client" ? (
+          {!user || user?.role === "client" ? (
             <Error404 message="Forbidden ⚠" />
           ) : (
             <DataTable
