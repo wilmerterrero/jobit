@@ -9,5 +9,6 @@ module.exports = {
             "src/exports"
         ]
     },
-    "entitiesDir": "src/models"
+    "entitiesDir": "src/models",
+    "ssl": true
 }
