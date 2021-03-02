@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=dev tsc-watch --onSuccess \"node ./dist/src/index.js\"",
     "test": "NODE_ENV=test mocha --check-leaks --exit dist/src/tests/*.spec.js",
+    "typeorm": "node ./node_modules/typeorm/cli.js migration:run",
     "tsc": "tsc",
     "postinstall": "npm run tsc"
   },
