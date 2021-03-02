@@ -6,8 +6,8 @@ import * as Yup from "yup";
 
 import authContext from "../context/auth/authContext";
 import jobContext from "../context/job/jobContext";
-import JobAlert from "../components/layout/jobs/JobAlert";
 import Error404 from "../components/layout/Error404";
+import Alert from "../components/layout/Alert";
 
 const CreateJob: React.FC<IJob> = () => {
   const AuthContext = useContext(authContext);
@@ -21,7 +21,7 @@ const CreateJob: React.FC<IJob> = () => {
     position: "",
     company: "",
     description: "",
-    categories: "",
+    category: "",
     location: "",
     type: "",
   };
@@ -32,7 +32,7 @@ const CreateJob: React.FC<IJob> = () => {
       position: Yup.string().required("Job position is required"),
       company: Yup.string().required("Job company is required"),
       description: Yup.string().required("Job description is required"),
-      categories: Yup.string().required("Job categories is required"),
+      category: Yup.string().required("Job categories is required"),
       location: Yup.string().required("Job location is required"),
       type: Yup.string().required("Job type is required"),
     }),
@@ -41,12 +41,15 @@ const CreateJob: React.FC<IJob> = () => {
         return router.push("/login");
       }
       createJob(values);
+      setTimeout(() => {
+        router.push("/admin/dashboard");
+      }, 3000);
     },
   });
 
   return (
     <Layout>
-      {message && <JobAlert />}
+      {message && <Alert message={message} />}
       <div
         className="bg-cover bg-blue-800 bg-center h-screen flex justify-center items-center space-y-4 my-10"
       >
@@ -61,22 +64,22 @@ const CreateJob: React.FC<IJob> = () => {
               Post a new Job
             </h2>
             <div className="w-full">
-              {formik.touched.categories && formik.errors.categories ? (
+              {formik.touched.category && formik.errors.category ? (
                 <div className="my-2 p-2 bg-gray-200 border-l-4 border-red-500 text-red-700">
                   <p className="font-bold">Error</p>
-                  <p>{formik.errors.categories}</p>
+                  <p>{formik.errors.category}</p>
                 </div>
               ) : null}
               <label
                 className="block text-white text-sm font-bold mb-2"
-                htmlFor="categories"
+                htmlFor="category"
               >
                 Category
               </label>
               <select 
                 className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
-                id="categories"
-                value={formik.values.categories}
+                id="category"
+                value={formik.values.category}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               >

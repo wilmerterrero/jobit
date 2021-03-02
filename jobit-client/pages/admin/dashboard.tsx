@@ -64,7 +64,7 @@ const Dashboard: React.FC = () => {
   const { user } = AuthContext;
 
   const JobContext = useContext(jobContext);
-  const { jobs, getJobs } = JobContext;
+  const { jobs, getJobs, deleteJob } = JobContext;
 
   useEffect(() => {
     getJobs();
@@ -91,26 +91,31 @@ const Dashboard: React.FC = () => {
       sortable: true,
     },
     {
+      name: "Type",
+      selector: "type",
+      sortable: true,
+    },
+    {
       name: "Poster Link",
       button: true,
       cell: (row) => (
         <>
-          <a
-            href="/"
-            target="_blank"
-            className="p-2 mr-3 bg-yellow-600 text-white"
-            rel="noopener noreferrer"
-          >
-            <EditIcon />
-          </a>
-          <a
-            href="/"
-            target="_blank"
+          <Link href="/jobs/[id]/[job]" as={`/jobs/${row.id}/edit-job`}>
+            <a
+              target="_blank"
+              className="p-2 mr-3 bg-yellow-600 text-white"
+              rel="noopener noreferrer"
+            >
+              <EditIcon />
+            </a>
+          </Link>
+          <button
+            type="button"
+            onClick={() => deleteJob(row.id)}
             className="p-2 bg-red-600 text-white"
-            rel="noopener noreferrer"
           >
             <DeleteIcon />
-          </a>
+          </button>
         </>
       ),
     },

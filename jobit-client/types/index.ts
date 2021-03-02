@@ -14,3 +14,13 @@ export const CREATE_JOB_ERROR = 'CREATE_JOB_ERROR';
 
 export const GET_JOBS_SUCCESS = 'GET_JOBS_SUCCESS';
 export const GET_JOBS_ERROR = 'GET_JOBS_ERROR';
+
+export const GET_JOB_DELETE = 'GET_JOB_DELETE';
+
+export const DELETE_JOB_SUCCESS = 'DELETE_JOB_SUCCESS';
+export const DELETE_JOB_ERROR = 'DELETE_JOB_ERROR';
+
+export const GET_JOB_EDIT = 'GET_JOB_EDIT';
+
+export const EDIT_JOB_SUCCESS = 'EDIT_JOB_SUCCESS';
+export const EDIT_JOB_ERROR = 'EDIT_JOB_ERROR';

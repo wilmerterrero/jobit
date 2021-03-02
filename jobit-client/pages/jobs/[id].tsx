@@ -12,9 +12,7 @@ const Job: React.FC = () => {
     position: "",
     company: "",
     description: "",
-    categories: "",
-    createdBy: "",
-    createdAt: "",
+    category: "",
     location: "",
     type: "",
   });
@@ -62,7 +60,7 @@ const Job: React.FC = () => {
     }
   };
 
-  const { position, description, location, createdBy, company } = job;
+  const { position, description, location, company } = job;
 
   return (
     <Layout>
@@ -106,7 +104,7 @@ const Job: React.FC = () => {
                       applyMessage ? null : "hidden"
                     } text-lg text-white font-bold block`}
                   >
-                    Send your resume to {createdBy}
+                    Send your resume to user
                   </p>
                 </>
               ) : null}

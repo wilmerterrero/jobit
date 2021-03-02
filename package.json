@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "react-datepicker": "^3.5.0"
+    "react-datepicker": "^3.5.0",
+    "sweetalert2": "^10.15.5"
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.7"

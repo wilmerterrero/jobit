@@ -29,7 +29,8 @@ interface IJob {
     company: string;
     description: string;
     location: string;
-    categories: Categories | string;
+    category?: string;
+    categories?: Categories | string;
     type: string;
 }
 
@@ -37,6 +38,10 @@ type JobContextType = {
     message?: null,
     jobs?: IJob[] | null,
     job?: IJob | null,
+    editedJob?: null,
+    deletedJob?: null,
     getJobs?: () => void,
-    createJob?: (job: IJob) => void
+    createJob?: (job: IJob) => void,
+    deleteJob?: (id: number) => void
+    editJob?: (job: IJob) => void
 }
