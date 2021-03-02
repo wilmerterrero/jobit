@@ -1,14 +1,10 @@
 module.exports = {
     "type": "postgres",
-    "url": process.env.DATABASE_URL,
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "tabardeveloper",
+    "database": "jobsapi",
     "synchronize": true,
-    "entities": ["dist/src/models/**/*.js"],
-    "migrations": ["dist/src/exports/**/*.js"],
-    "cli": { 
-        "migrationsDir": [
-            "src/exports"
-        ]
-    },
-    "entitiesDir": "src/models",
-    "ssl": true
+    "entities": ["dist/src/models/*.js"],
 }
