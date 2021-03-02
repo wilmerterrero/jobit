@@ -22,15 +22,15 @@ export default class JobsController extends AbstractRepository<JobsModel>{
     }
 
     public async PaginatedJobs(req: Request, res: Response): Promise<Response> {
-        const { skip, take } = req.params;
+        const { page, pages } = req.params;
         
-        if(parseInt(skip) >= 0 && parseInt(take) > 0){
-            const Pagination = await JobsModel.find({skip: parseInt(skip), take: parseInt(take)});
+        if(parseInt(page) >= 0 && parseInt(pages) > 0){
+            const Pagination = await JobsModel.find({skip: parseInt(page), take: parseInt(pages)});
             const allPages = await JobsModel.count();
-            const pageCount =  Math.floor(allPages / parseInt(take));   
-            const currentPage = Math.floor(parseInt(skip) / pageCount);
+            const pageCount =  Math.floor(allPages / parseInt(page));   
+            const currentPage = Math.floor(parseInt(page) / pageCount);
 
-            return res.status(200).json({totalCount: allPages, perPage: take, pageCount: pageCount, currentPage: currentPage, info: Pagination});
+            return res.status(200).json({totalCount: allPages, perPage: pages, pageCount: pageCount, currentPage: currentPage, info: Pagination});
         }
         
         return res.status(400).json({msg: "Something went wrong"}); 
