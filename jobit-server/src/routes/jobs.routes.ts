@@ -16,7 +16,7 @@ class JobsRoutes{
 
         this.router.get('/', jobsController.GetAllJobs);
         this.router.get('/one/:id', jobsController.GetOneJob);
-        this.router.get('/pages/:skip/:take', jobsController.PaginatedJobs);
+        this.router.get('/pages/:page/:pages', jobsController.PaginatedJobs);
         this.router.post('/publish/', passport.authenticate('jwt', {session: false}), isAdminOrModerator ,jobsController.PostJobs);
         this.router.put('/update/:id', passport.authenticate('jwt', {session: false}), isAdminOrModerator ,jobsController.UpdateJobs);
         this.router.delete('/delete/one/:id', passport.authenticate('jwt', {session: false}), isAdminOrModerator ,jobsController.DeleteOneJob);
