@@ -34,7 +34,7 @@ const jobReducer = (state: any, action: any) => {
         editedJob: action.payload,
       };
     case EDIT_JOB_SUCCESS:
-        console.log(state)
+      console.log(state);
       return {
         ...state,
         jobs: state.jobs.map((job: IJob) =>
@@ -53,6 +53,11 @@ const jobReducer = (state: any, action: any) => {
         ...state,
         jobs: state.jobs.filter((job: IJob) => job.id !== state.deletedJob),
         deletedJob: null,
+      };
+    case CLEAN_ALERT:
+      return {
+        ...state,
+        message: null,
       };
     default:
       return state;

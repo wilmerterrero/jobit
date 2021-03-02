@@ -8,10 +8,14 @@ import tokenAuth from '../../config/token';
 import { 
     REGISTER_SUCCCES, 
     REGISTER_ERROR,
+    GET_USERS_SUCCESS,
+    GET_USERS_ERROR,
     LOGIN_SUCCESS,
     LOGIN_ERROR,
     USER_AUTH,
     LOG_OUT, 
+    CHANGE_USER_ROLE_SUCCESS,
+    CHANGE_USER_ROLE_ERROR,
     CLEAN_ALERT } from '../../types';
 
 const AuthState: React.FC = ({ children }) => {
@@ -65,7 +69,6 @@ const AuthState: React.FC = ({ children }) => {
                 type: REGISTER_SUCCCES,
                 payload: response.data.msg
             })
-            console.log(user);
         } catch (error) {
             dispatch({
                 type: REGISTER_ERROR,
@@ -92,7 +95,6 @@ const AuthState: React.FC = ({ children }) => {
 
         try {
             const response = await axiosClient.post('/auth/login', user);
-            console.log(response);
             
             //passing the token to the state
             dispatch({
@@ -146,6 +148,46 @@ const AuthState: React.FC = ({ children }) => {
         })
     }
 
+    const getAllUsers = async () => {
+        try {
+            const response = await axiosClient.get('/auth/users');
+            dispatch({
+                type: GET_USERS_SUCCESS,
+                payload: response.data.msg
+            })
+        } catch (error) {
+            dispatch({
+                type: GET_USERS_ERROR,
+                payload: error.response.data.msg
+            })
+        }
+    }
+
+    const changeRole = async (user: IUserRole) => {
+
+        try {
+            const response = await axiosClient.post('/auth/login/admin/change', user);
+            
+            dispatch({
+                type: CHANGE_USER_ROLE_SUCCESS,
+                payload: response.data.msg
+            })
+
+        } catch (error) {
+            dispatch({
+                type: CHANGE_USER_ROLE_ERROR,
+                payload: error.response.data.msg
+            })
+        }
+
+        setTimeout(() => {
+            dispatch({
+                type: CLEAN_ALERT
+            })
+        }, 3000);
+
+    }
+
     return (
         <authContext.Provider
             value={{ 
@@ -157,7 +199,9 @@ const AuthState: React.FC = ({ children }) => {
                 registerUser: registerUser,
                 logInUser: logInUser,
                 logOutUser: logOutUser,
-                authUser: authUser
+                getAllUsers: getAllUsers,
+                authUser: authUser,
+                changeRole: changeRole
              }}
         >
             {children}

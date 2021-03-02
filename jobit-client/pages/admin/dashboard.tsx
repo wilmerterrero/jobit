@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
-import styled from "styled-components";
 import Link from "next/link";
 import DataTable from "react-data-table-component";
 import Layout from "../../components/layout/Layout";
@@ -10,56 +9,16 @@ import jobContext from "../../context/job/jobContext";
 import DeleteIcon from "../../components/layout/icons/delete";
 import EditIcon from "../../components/layout/icons/edit";
 import Error404 from "../../components/layout/Error404";
-
-const TextField = styled.input`
-  height: 32px;
-  width: 200px;
-  border-radius: 3px;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border: 1px solid #e5e5e5;
-  padding: 0 32px 0 16px;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const ClearButton = styled.button`
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  height: 34px;
-  width: 32px;
-  padding: 3px;
-  background-color: #8181c2;
-  color: white;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const FilterComponent = ({ filterJob, onFilter, onClear }) => (
-  <>
-    <TextField
-      id="search"
-      type="text"
-      placeholder="Filter By Name"
-      aria-label="Search Input"
-      value={filterJob}
-      onChange={onFilter}
-    />
-    <ClearButton type="button" onClick={onClear}>
-      X
-    </ClearButton>
-  </>
-);
+import axiosClient from "../../config/axios";
 
 const Dashboard: React.FC = () => {
+
+  const [jobData, setJobData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [totalRows, setTotalRows] = useState(0);
+  const [perPage, setPerPage] = useState(10);
+  const [filterJob, setFilterJobs] = useState("");
+
   const AuthContext = useContext(authContext);
   const { user } = AuthContext;
 
@@ -72,12 +31,44 @@ const Dashboard: React.FC = () => {
 
   const data = jobs !== null ? jobs : [];
 
-  const [filterJob, setFilterJobs] = useState("");
   const filteredJobs = data.filter(
     (job) =>
       job.position &&
       job.position.toLowerCase().includes(filterJob.toLowerCase())
   );
+
+  const fetchJobs = async page => {
+    setLoading(true);
+
+    const response = await axiosClient.get(
+      `/jobs/pages/${page}/${perPage}`,
+    );
+
+    setJobData(response.data.info);
+    setTotalRows(response.data.totalCount);
+    setLoading(false);
+  };
+
+  const handlePageChange = page => {
+    fetchJobs(page);
+  };
+
+  const handlePerRowsChange = async (newPerPage, page) => {
+    setLoading(true);
+
+    const response = await axiosClient.get(
+      `/jobs/pages/${page}/${perPage}`,
+    );
+
+    setJobData(response.data.info);
+    setPerPage(newPerPage);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchJobs(0);
+  
+  }, []);
 
   const columns = [
     {
@@ -122,24 +113,18 @@ const Dashboard: React.FC = () => {
   ];
 
   const subHeaderComponentMemo = useMemo(() => {
-    const handleClear = () => {
-      if (filterJob) {
-        setFilterJobs("");
-      }
-    };
-
     return (
       <>
         <Link href="/create-job">
-          <a className="bg-green-500 px-2 py-1 rounded-sm text-white font-bold mr-10">
+          <a className="bg-green-500 px-2 py-1 rounded-sm text-white font-bold mr-5">
             + Create New Job
           </a>
         </Link>
-        <FilterComponent
-          onFilter={(e) => setFilterJobs(e.target.value)}
-          onClear={handleClear}
-          filterJob={filterJob}
-        />
+        <Link href="/admin/change-role">
+          <a className="bg-blue-500 px-2 py-1 rounded-sm text-white font-bold">
+            Manage users
+          </a>
+        </Link>
       </>
     );
   }, [filterJob]);
@@ -157,8 +142,13 @@ const Dashboard: React.FC = () => {
             <DataTable
               title="Jobs"
               pagination
+              paginationServer
+              paginationTotalRows={totalRows}
+              onChangeRowsPerPage={handlePerRowsChange}
+              onChangePage={handlePageChange}
+              progressPending={loading}
               columns={columns}
-              data={filteredJobs}
+              data={jobData}
               subHeader
               subHeaderComponent={subHeaderComponentMemo}
             />

@@ -11,6 +11,12 @@ interface IUser {
     role?: Roles;
 }
 
+interface IUserRole {
+    id?: number;
+    email: string;
+    role: Roles | string;
+}
+
 type UserContextType = {
     users: IUser[] | null
     user: IUser | null
@@ -21,6 +27,8 @@ type UserContextType = {
     logInUser: (user: IUser) => void
     logOutUser: () => void
     authUser: () => void
+    getAllUsers: () => void
+    changeRole: (user: IUserRole) => void
 }
 
 interface IJob {

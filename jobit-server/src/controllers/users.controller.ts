@@ -116,4 +116,21 @@ export default class UsersController extends AbstractRepository<UsersModel>{
             return res.status(400).json({msg: error});
         }
     }
+
+    public async GetAllUsers(req: Request, res: Response): Promise<Response> {
+        try{
+            
+            const Users = await UsersModel.find({});
+            if(Users){
+                return res.status(200).json({msg: Users});
+            }
+
+            console.log('Error on get users');
+            return res.status(400).json({msg: 'Error on get users'});
+        }
+        catch(error){
+            console.log(error);
+            return res.status(400).json({msg: error});
+        }
+    }
 }
